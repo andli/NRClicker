@@ -1,0 +1,102 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:useDefaultMargins="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:padding="5dp">
+
+        <net.pooksoft.nrclicker.ui.LabeledNumberPicker
+            app:labelText="Link Strength"
+            app:rangeMax="5"
+            app:rangeMin="0"
+            app:fontSize="14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnpLinkStrength"
+            android:gravity="fill"
+            android:layout_gravity="fill"
+            android:layout_weight=".5" />
+
+        <net.pooksoft.nrclicker.ui.LabeledNumberPicker
+            app:labelText=" Tags"
+            app:rangeMax="50"
+            app:rangeMin="0"
+            app:fontSize="14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnpTags"
+            android:gravity="fill"
+            android:layout_gravity="fill"
+            android:layout_weight=".5" />
+
+        <net.pooksoft.nrclicker.ui.LabeledNumberPicker
+            app:labelText="Brain damage"
+            app:rangeMax="9"
+            app:rangeMin="0"
+            app:fontSize="14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnpBrainDamage"
+            android:gravity="fill"
+            android:layout_gravity="fill"
+            android:layout_weight=".5" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="6"
+        android:padding="5dp">
+
+        <net.pooksoft.nrclicker.ui.LabeledNumberPicker
+            app:labelText=" Agendas"
+            app:rangeMax="7"
+            app:rangeMin="0"
+            app:fontSize="22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnpAgendas"
+            android:gravity="fill"
+            android:layout_gravity="fill"
+            android:layout_weight=".5" />
+
+        <net.pooksoft.nrclicker.ui.LabeledNumberPicker
+            app:labelText=" Credits"
+            app:rangeMax="99"
+            app:rangeMin="0"
+            app:fontSize="22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnpCredits"
+            android:gravity="fill"
+            android:layout_gravity="fill"
+            android:layout_weight=".5" />
+    </LinearLayout>
+
+    <net.pooksoft.nrclicker.ui.TurnClicker
+        app:numClicks="4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="2"
+        android:layout_gravity="bottom"
+        android:id="@+id/clickGroup"
+        android:checkedButton="0">
+
+    </net.pooksoft.nrclicker.ui.TurnClicker>
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill_horizontal"
+    android:gravity="fill_horizontal"
+    android:useDefaultMargins="true"
+    >
+
+    <net.pooksoft.nrclicker.ui.VerticalTextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:id="@+id/label"
+        android:text="@string/placeholder_LNP_label"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:padding="5dp"
+        />
+    <NumberPicker
+        android:layout_weight="1"
+        android:id="@+id/numpick"
+        android:focusable="false"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|fill"
+        />
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/logText"
+        android:gravity="top|bottom|start|right"
+        android:text="@string/placeholder_LNP_log"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical"
+        android:singleLine="false"
+        android:maxWidth="32sp"
+        />
+
+</LinearLayout>

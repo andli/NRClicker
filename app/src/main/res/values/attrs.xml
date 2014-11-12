@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LabeledNumberPicker">
+        <attr name="labelText" format="string" localization="suggested" />
+        <attr name="fontSize" format="string" localization="suggested" />
+        <attr name="rangeMax" format="integer" />
+        <attr name="rangeMin" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TurnClicker">
+        <attr name="numClicks" format="integer" />
+    </declare-styleable>
+
+</resources>
