@@ -16,7 +16,7 @@ import net.pooksoft.nrclicker.R;
 /**
  * Created by andreas on 2014-11-11.
  */
-public class TurnClicker extends LinearLayout implements ToggleButton.OnCheckedChangeListener {
+public class TurnClicker extends LinearLayout {
 
     private String playerLabel;
 
@@ -56,19 +56,20 @@ public class TurnClicker extends LinearLayout implements ToggleButton.OnCheckedC
 
             // if it's the last button, add a listener that spawns a question
             if (i == numClicks - 1) {
-                buttons[i].setOnCheckedChangeListener(this);
+                Log.d("test", "setOnCheckedChangeListener");
+                buttons[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        Log.d("test", "onCheckedChanged"); //TODO: make this trigger!
+                        if (isChecked) {
+                            SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("playerLabel", playerLabel);
+                            switchFragmentDialog.setArguments(bundle);
+                        }
+                    }
+                });
             }
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        Log.d("test", "onCheckedChanged"); //TODO: make this trigger!
-        if (b) {
-            SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog();
-            Bundle bundle = new Bundle();
-            bundle.putString("playerLabel", playerLabel);
-            switchFragmentDialog.setArguments(bundle);
         }
     }
 }

@@ -25,7 +25,6 @@ public class RunnerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_runner, null);
 
         //LinearLayout ll = (LinearLayout)inflater.inflate(R.layout.fragment_runner, container, false);
-        Log.d("test", "INIT");
 
         return view;
     }
