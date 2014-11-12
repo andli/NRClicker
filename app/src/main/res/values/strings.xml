@@ -8,5 +8,7 @@
     <string name="action_settings">Settings</string>
     <string name="placeholder_LNP_label">Clicker\nlabel_much_wow</string>
     <string name="placeholder_LNP_log">...</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

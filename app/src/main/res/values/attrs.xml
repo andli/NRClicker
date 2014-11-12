@@ -9,6 +9,7 @@
 
     <declare-styleable name="TurnClicker">
         <attr name="numClicks" format="integer" />
+        <attr name="label" format="string" />
     </declare-styleable>
 
 </resources>

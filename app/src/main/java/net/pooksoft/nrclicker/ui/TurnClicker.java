@@ -16,12 +16,17 @@ import net.pooksoft.nrclicker.R;
  */
 public class TurnClicker extends LinearLayout implements ToggleButton.OnCheckedChangeListener {
 
+    private String playerLabel;
+
     public TurnClicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray xmlAttrs = context.obtainStyledAttributes(attrs, R.styleable.TurnClicker, 0, 0);
         int numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
+        String label = xmlAttrs.getString(R.styleable.TurnClicker_label);
         xmlAttrs.recycle();
+
+        this.playerLabel = label;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -56,6 +61,6 @@ public class TurnClicker extends LinearLayout implements ToggleButton.OnCheckedC
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+        SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog(playerLabel);
     }
 }
