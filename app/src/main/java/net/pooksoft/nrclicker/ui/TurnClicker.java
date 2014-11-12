@@ -1,6 +1,11 @@
 package net.pooksoft.nrclicker.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -18,6 +23,7 @@ import net.pooksoft.nrclicker.R;
  */
 public class TurnClicker extends LinearLayout {
 
+    private FragmentManager fMgr;
     private String playerLabel;
 
     public TurnClicker(Context context, AttributeSet attrs) {
@@ -28,12 +34,21 @@ public class TurnClicker extends LinearLayout {
         String label = xmlAttrs.getString(R.styleable.TurnClicker_label);
         xmlAttrs.recycle();
 
+        fMgr = null;
+        try {
+            fMgr = ((Activity) context).getFragmentManager();
+        }
+        catch (Exception e) {
+            Log.d("test", e.toString());
+        }
+
         this.playerLabel = label;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.turn_clicker, this, true);
 
+        ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
         ToggleButton[] buttons = new ToggleButton[numClicks];
 
         for (int i = 0; i < numClicks; i++) {
@@ -41,35 +56,35 @@ public class TurnClicker extends LinearLayout {
             buttons[i].setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            buttons[i].setText(Integer.toString(i));
-            buttons[i].setTextOn(Integer.toString(i));
-            buttons[i].setTextOff(Integer.toString(i));
+            buttons[i].setText(Integer.toString(i+1));
+            buttons[i].setTextOn(Integer.toString(i+1));
+            buttons[i].setTextOff(Integer.toString(i+1));
             buttons[i].setTextSize(24f);
-            if (i == 0) {
-                buttons[i].setChecked(true);
-            } else {
-                buttons[i].setChecked(false);
-            }
             buttons[i].setClickable(true);
-            buttons[i].setMinHeight(70);
-            buttons[i].setMinWidth(80);
+            buttons[i].setHeight(170);
+            buttons[i].setWidth(180);
 
             // if it's the last button, add a listener that spawns a question
             if (i == numClicks - 1) {
-                Log.d("test", "setOnCheckedChangeListener");
-                buttons[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                Log.d("test", "setOnCheckedChangeListener for " + Integer.toString(i));
+                buttons[i].setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        Log.d("test", "onCheckedChanged"); //TODO: make this trigger!
+                    public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
                         if (isChecked) {
-                            SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("playerLabel", playerLabel);
-                            switchFragmentDialog.setArguments(bundle);
+                            SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(playerLabel);
+
+                            Log.d("test", "Dialog here");
+                            if (fMgr != null) {
+                                switchFragmentDialog.show(fMgr, "HEJ");
+                            } else {
+                                Log.d("test", "fMgr is null");
+                            }
                         }
                     }
                 });
             }
+
+            clickGroup.addView(buttons[i]);
         }
     }
 }

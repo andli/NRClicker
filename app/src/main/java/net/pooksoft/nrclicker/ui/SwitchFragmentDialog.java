@@ -13,16 +13,19 @@ import net.pooksoft.nrclicker.R;
  */
 public class SwitchFragmentDialog extends DialogFragment {
 
-    private String playerLabel;
+    public SwitchFragmentDialog() {}
 
-    @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
+    public static SwitchFragmentDialog newInstance(String playerLabel) {
+        SwitchFragmentDialog frag = new SwitchFragmentDialog();
+        Bundle args = new Bundle();
+        args.putString("playerLabel", playerLabel);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String msgString = "Switch to " + savedInstanceState.getString("playerLabel") + "?";
+         String msgString = "Switch to " + getArguments().getString("playerLabel") + "?";
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
