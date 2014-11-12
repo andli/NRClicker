@@ -2,7 +2,9 @@ package net.pooksoft.nrclicker.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -61,6 +63,12 @@ public class TurnClicker extends LinearLayout implements ToggleButton.OnCheckedC
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog(playerLabel);
+        Log.d("test", "onCheckedChanged"); //TODO: make this trigger!
+        if (b) {
+            SwitchFragmentDialog switchFragmentDialog = new SwitchFragmentDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("playerLabel", playerLabel);
+            switchFragmentDialog.setArguments(bundle);
+        }
     }
 }

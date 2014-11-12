@@ -15,11 +15,6 @@ public class SwitchFragmentDialog extends DialogFragment {
 
     private String playerLabel;
 
-    public SwitchFragmentDialog(String label) {
-
-        this.playerLabel = label;
-    }
-
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
@@ -27,9 +22,11 @@ public class SwitchFragmentDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        String msgString = "Switch to " + savedInstanceState.getString("playerLabel") + "?";
+
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Switch to XXX?")//R.string.dialog_fire_missiles)
+        builder.setMessage(msgString)//R.string.dialog_fire_missiles)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

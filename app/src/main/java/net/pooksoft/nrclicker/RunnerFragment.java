@@ -16,7 +16,7 @@ import android.widget.ToggleButton;
  */
 public class RunnerFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number"; // placeholder
+    private static final String PLAYER_LABEL = "Runner";
 
     public RunnerFragment() {}
 
@@ -34,10 +34,10 @@ public class RunnerFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static RunnerFragment newInstance(int sectionNumber) {
+    public static RunnerFragment newInstance() {
         RunnerFragment fragment = new RunnerFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(PLAYER_LABEL, "Runner");
         fragment.setArguments(args);
         return fragment;
     }

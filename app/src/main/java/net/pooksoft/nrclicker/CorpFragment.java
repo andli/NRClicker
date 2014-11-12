@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  */
 public class CorpFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number"; // placeholder
+    private static final String PLAYER_LABEL = "Corp";
 
     public CorpFragment() {}
 
@@ -26,10 +26,10 @@ public class CorpFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static CorpFragment newInstance(int sectionNumber) {
+    public static CorpFragment newInstance() {
         CorpFragment fragment = new CorpFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(PLAYER_LABEL, "Corp");
         fragment.setArguments(args);
         return fragment;
     }
