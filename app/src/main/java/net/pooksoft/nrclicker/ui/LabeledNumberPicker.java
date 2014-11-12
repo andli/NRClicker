@@ -10,7 +10,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import net.pooksoft.nrclicker.R;
-import net.pooksoft.nrclicker.ui.VerticalTextView;
 
 import java.util.LinkedList;
 
@@ -23,7 +22,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
     NumberPicker np;
     VerticalTextView label;
     TextView log;
-    LinkedList loggedValues;
+    LinkedList<Integer> loggedValues;
     final Handler changeHandler = new Handler();
 
     private int NUM_LOG_VALS;
@@ -49,7 +48,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         super(context, attrs);
 
         NUM_LOG_VALS = 5;
-        loggedValues = new LinkedList();
+        loggedValues = new LinkedList<Integer>();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LabeledNumberPicker, 0, 0);
         String titleText = a.getString(R.styleable.LabeledNumberPicker_labelText);
@@ -80,22 +79,6 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
 
     public void setLabelText(String text) {
         label.setText(text);
-    }
-
-    public void setMinValue(int minVal) {
-        np.setMinValue(minVal);
-    }
-
-    public void setMaxValue(int maxVal) {
-        np.setMaxValue(maxVal);
-    }
-
-    public void setWrapSelectorWheel(boolean b) {
-        np.setWrapSelectorWheel(b);
-    }
-
-    public void setValue(int i) {
-        np.setValue(i);
     }
 
     private void stepLogger(int newValue) {
