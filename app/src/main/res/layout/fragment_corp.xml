@@ -20,6 +20,7 @@
             app:labelText="Bad publicity"
             app:rangeMax="50"
             app:rangeMin="0"
+            app:startValue="0"
             app:fontSize="14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             app:labelText=" Agendas"
             app:rangeMax="7"
             app:rangeMin="0"
+            app:startValue="0"
             app:fontSize="22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,18 +57,20 @@
             app:labelText=" Credits"
             app:rangeMax="99"
             app:rangeMin="0"
+            app:startValue="5"
             app:fontSize="22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lnpCredits"
             android:gravity="fill"
             android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            android:layout_weight=".5"
+            />
     </LinearLayout>
 
     <net.pooksoft.nrclicker.ui.TurnClicker
         app:numClicks="3"
-        app:label="Corp"
+        app:nextPlayerLabel="Runner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

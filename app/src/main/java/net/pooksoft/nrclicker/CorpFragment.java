@@ -11,8 +11,6 @@ import android.view.ViewGroup;
  */
 public class CorpFragment extends Fragment {
 
-    private static final String PLAYER_LABEL = "Corp";
-
     public CorpFragment() {}
 
     @Override
@@ -29,7 +27,7 @@ public class CorpFragment extends Fragment {
     public static CorpFragment newInstance() {
         CorpFragment fragment = new CorpFragment();
         Bundle args = new Bundle();
-        args.putString(PLAYER_LABEL, "Corp");
+        //args.putString("nextPlayerLabel", "Runner");
         fragment.setArguments(args);
         return fragment;
     }

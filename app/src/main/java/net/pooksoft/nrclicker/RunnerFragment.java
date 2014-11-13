@@ -16,8 +16,6 @@ import android.widget.ToggleButton;
  */
 public class RunnerFragment extends Fragment {
 
-    private static final String PLAYER_LABEL = "Runner";
-
     public RunnerFragment() {}
 
     @Override
@@ -36,7 +34,7 @@ public class RunnerFragment extends Fragment {
     public static RunnerFragment newInstance() {
         RunnerFragment fragment = new RunnerFragment();
         Bundle args = new Bundle();
-        args.putString(PLAYER_LABEL, "Runner");
+        //args.putString("nextPlayerLabel", "Corp");
         fragment.setArguments(args);
         return fragment;
     }

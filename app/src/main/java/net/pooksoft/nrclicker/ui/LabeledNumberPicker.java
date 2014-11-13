@@ -54,6 +54,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         String titleText = a.getString(R.styleable.LabeledNumberPicker_labelText);
         int rangeMax = a.getInteger(R.styleable.LabeledNumberPicker_rangeMax, 0);
         int rangeMin = a.getInteger(R.styleable.LabeledNumberPicker_rangeMin, 0);
+        int startValue = a.getInteger(R.styleable.LabeledNumberPicker_startValue, 0);
         float fontSize = a.getFloat(R.styleable.LabeledNumberPicker_fontSize, 0);
         a.recycle();
 
@@ -68,7 +69,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         setLabelText(titleText);
         np.setMinValue(rangeMin);
         np.setMaxValue(rangeMax);
-        np.setValue(0);
+        np.setValue(startValue);
         np.setOnValueChangedListener(this);
 
     }

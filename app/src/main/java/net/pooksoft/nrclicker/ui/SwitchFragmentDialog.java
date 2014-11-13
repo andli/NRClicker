@@ -15,17 +15,17 @@ public class SwitchFragmentDialog extends DialogFragment {
 
     public SwitchFragmentDialog() {}
 
-    public static SwitchFragmentDialog newInstance(String playerLabel) {
+    public static SwitchFragmentDialog newInstance(String nextPlayerLabel) {
         SwitchFragmentDialog frag = new SwitchFragmentDialog();
         Bundle args = new Bundle();
-        args.putString("playerLabel", playerLabel);
+        args.putString("nextPlayerLabel", nextPlayerLabel);
         frag.setArguments(args);
         return frag;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-         String msgString = "Switch to " + getArguments().getString("playerLabel") + "?";
+         String msgString = "Switch to " + getArguments().getString("nextPlayerLabel") + "?";
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

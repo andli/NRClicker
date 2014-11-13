@@ -1,20 +1,15 @@
 package net.pooksoft.nrclicker.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.ToggleButton;
 
 import net.pooksoft.nrclicker.R;
 
@@ -24,14 +19,14 @@ import net.pooksoft.nrclicker.R;
 public class TurnClicker extends LinearLayout {
 
     private FragmentManager fMgr;
-    private String playerLabel;
+    private String nextPlayerLabel;
 
     public TurnClicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray xmlAttrs = context.obtainStyledAttributes(attrs, R.styleable.TurnClicker, 0, 0);
         int numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
-        String label = xmlAttrs.getString(R.styleable.TurnClicker_label);
+        this.nextPlayerLabel = xmlAttrs.getString(R.styleable.TurnClicker_nextPlayerLabel);
         xmlAttrs.recycle();
 
         fMgr = null;
@@ -42,17 +37,16 @@ public class TurnClicker extends LinearLayout {
             Log.d("test", e.toString());
         }
 
-        this.playerLabel = label;
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.turn_clicker, this, true);
 
         ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
-        ToggleButton[] buttons = new ToggleButton[numClicks];
+        ClickToggleButton[] buttons = new ClickToggleButton[numClicks];
 
         for (int i = 0; i < numClicks; i++) {
-            buttons[i] = new ToggleButton(context);
+            buttons[i] = new ClickToggleButton(context);
             buttons[i].setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -67,11 +61,11 @@ public class TurnClicker extends LinearLayout {
             // if it's the last button, add a listener that spawns a question
             if (i == numClicks - 1) {
                 Log.d("test", "setOnCheckedChangeListener for " + Integer.toString(i));
-                buttons[i].setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
+                buttons[i].setOnCheckedChangeListener(new ClickToggleButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+                    public void onCheckedChanged(CompoundButton ClickToggleButton, boolean isChecked) {
                         if (isChecked) {
-                            SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(playerLabel);
+                            SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
 
                             Log.d("test", "Dialog here");
                             if (fMgr != null) {

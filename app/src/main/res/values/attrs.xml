@@ -5,11 +5,12 @@
         <attr name="fontSize" format="string" localization="suggested" />
         <attr name="rangeMax" format="integer" />
         <attr name="rangeMin" format="integer" />
+        <attr name="startValue" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="TurnClicker">
         <attr name="numClicks" format="integer" />
-        <attr name="label" format="string" />
+        <attr name="nextPlayerLabel" format="string" />
     </declare-styleable>
 
 </resources>
