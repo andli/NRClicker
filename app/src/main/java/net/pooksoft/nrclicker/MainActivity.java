@@ -7,9 +7,11 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.TabActivity;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import net.pooksoft.nrclicker.ui.TurnClicker;
+
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
 
+    private static final int CORP = 0;
+    private static final int RUNNER = 1;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -96,6 +102,20 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             return true;
         }
 
+        if (id == R.id.action_newgame) {
+            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
+            tc.clearButtons();
+            tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
+            tc.clearButtons();
+
+            ((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
+            ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();
+
+            mViewPager.setCurrentItem(CORP);
+
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -127,11 +147,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
-                case 0:
+                case CORP:
                     return CorpFragment.newInstance();
-                case 1:
+                case RUNNER:
                     return RunnerFragment.newInstance();
             }
             return null;
@@ -147,12 +166,24 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
-                case 0:
+                case CORP:
                     return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
+                case RUNNER:
                     return getString(R.string.title_section2).toUpperCase(l);
             }
             return null;
         }
+    }
+
+    public void doPositiveClick() {
+        TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
+        tc.clearButtons();
+        tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
+        tc.clearButtons();
+
+        int i = mViewPager.getCurrentItem();
+        i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
+        mViewPager.setCurrentItem(i);
+
     }
 }

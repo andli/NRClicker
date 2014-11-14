@@ -6,10 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.ToggleButton;
+
+import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 
 /**
  * Created by andreas on 2014-09-01.
@@ -37,5 +36,11 @@ public class RunnerFragment extends Fragment {
         //args.putString("nextPlayerLabel", "Corp");
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void clearValues() {
+        Log.d("test", "Clear values in runner frag");
+
+        //TODO: get the lnp's and reset them
     }
 }

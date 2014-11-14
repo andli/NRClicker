@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import net.pooksoft.nrclicker.MainActivity;
 import net.pooksoft.nrclicker.R;
 
 /**
@@ -32,7 +33,7 @@ public class SwitchFragmentDialog extends DialogFragment {
         builder.setMessage(msgString)//R.string.dialog_fire_missiles)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                        ((MainActivity)getActivity()).doPositiveClick();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

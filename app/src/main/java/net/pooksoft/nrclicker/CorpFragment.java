@@ -2,6 +2,7 @@ package net.pooksoft.nrclicker;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,5 +31,9 @@ public class CorpFragment extends Fragment {
         //args.putString("nextPlayerLabel", "Runner");
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public void clearValues() {
+        Log.d("test", "Clear values in corp frag");
     }
 }

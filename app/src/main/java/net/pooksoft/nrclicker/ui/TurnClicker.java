@@ -2,16 +2,23 @@ package net.pooksoft.nrclicker.ui;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ToggleButton;
 
 import net.pooksoft.nrclicker.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by andreas on 2014-11-11.
@@ -20,12 +27,14 @@ public class TurnClicker extends LinearLayout {
 
     private FragmentManager fMgr;
     private String nextPlayerLabel;
+    private int numClicks;
+    private ToggleButton[] buttons;
 
     public TurnClicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray xmlAttrs = context.obtainStyledAttributes(attrs, R.styleable.TurnClicker, 0, 0);
-        int numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
+        numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
         this.nextPlayerLabel = xmlAttrs.getString(R.styleable.TurnClicker_nextPlayerLabel);
         xmlAttrs.recycle();
 
@@ -43,42 +52,51 @@ public class TurnClicker extends LinearLayout {
         inflater.inflate(R.layout.turn_clicker, this, true);
 
         ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
-        ClickToggleButton[] buttons = new ClickToggleButton[numClicks];
 
         for (int i = 0; i < numClicks; i++) {
-            buttons[i] = new ClickToggleButton(context);
-            buttons[i].setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            buttons[i].setText(Integer.toString(i+1));
-            buttons[i].setTextOn(Integer.toString(i+1));
-            buttons[i].setTextOff(Integer.toString(i+1));
-            buttons[i].setTextSize(24f);
-            buttons[i].setClickable(true);
-            buttons[i].setHeight(170);
-            buttons[i].setWidth(180);
+            inflater.inflate(R.layout.toggle_button, clickGroup, true);
 
-            // if it's the last button, add a listener that spawns a question
-            if (i == numClicks - 1) {
-                Log.d("test", "setOnCheckedChangeListener for " + Integer.toString(i));
-                buttons[i].setOnCheckedChangeListener(new ClickToggleButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton ClickToggleButton, boolean isChecked) {
-                        if (isChecked) {
-                            SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
+            if (numClicks % 2 == 0) {
+                // TODO: offset maybe?
+            }
+        }
 
-                            Log.d("test", "Dialog here");
-                            if (fMgr != null) {
-                                switchFragmentDialog.show(fMgr, "HEJ");
-                            } else {
-                                Log.d("test", "fMgr is null");
-                            }
+        // if it's the last button, add a listener that spawns a question
+        int numButtons = clickGroup.getChildCount();
+        for (int j = 0; j < numButtons; j++) {
+            ToggleButton lastTb = (ToggleButton) clickGroup.getChildAt(numButtons - 1);
+
+            lastTb.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton ToggleButton, boolean isChecked) {
+                    if (isChecked) {
+                        SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
+
+                        if (fMgr != null) {
+                            FragmentTransaction ft = fMgr.beginTransaction();
+                            switchFragmentDialog.show(ft, null);
+                        } else {
+                            Log.d("test", "fMgr is null");
                         }
                     }
-                });
-            }
-
-            clickGroup.addView(buttons[i]);
+                }
+            });
         }
+    }
+
+    public void clearButtons() {
+        RadioGroup clickGroup = (RadioGroup) findViewById(R.id.clickGroup);
+        int num = clickGroup.getChildCount();
+        ArrayList<ToggleButton> listOfRadioButtons = new ArrayList<ToggleButton>();
+        for (int i = 0; i < num; i++) {
+            ToggleButton tb = (ToggleButton)clickGroup.getChildAt(i);
+            listOfRadioButtons.add(tb);
+            tb.setChecked(false);
+        }
+    }
+
+    private int getPx(float dps) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        return (int) (dps * scale + 0.5f);
     }
 }

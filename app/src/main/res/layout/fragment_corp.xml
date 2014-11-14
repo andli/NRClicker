@@ -9,16 +9,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:padding="5dp"
         android:gravity="center_horizontal"
-        >
+        android:layout_gravity="center_vertical">
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText="Bad publicity"
-            app:rangeMax="50"
+            app:rangeMax="10"
             app:rangeMin="0"
             app:startValue="0"
             app:fontSize="14"
@@ -35,9 +35,9 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_weight="6"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:padding="5dp">
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
@@ -71,14 +71,14 @@
     <net.pooksoft.nrclicker.ui.TurnClicker
         app:numClicks="3"
         app:nextPlayerLabel="Runner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_weight="2"
-        android:layout_gravity="bottom"
-        android:id="@+id/clickGroup"
-        android:checkedButton="0">
+        android:layout_gravity="center_vertical"
+        android:id="@+id/turnClickerCorp"
+        android:layout_weight="1"
+        >
 
     </net.pooksoft.nrclicker.ui.TurnClicker>
 
