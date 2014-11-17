@@ -3,7 +3,6 @@ package net.pooksoft.nrclicker.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.TextView;
 
 public class VerticalTextView extends TextView {

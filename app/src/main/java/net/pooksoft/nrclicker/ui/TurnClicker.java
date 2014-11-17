@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
@@ -23,15 +23,17 @@ import java.util.ArrayList;
 /**
  * Created by andreas on 2014-11-11.
  */
-public class TurnClicker extends LinearLayout {
+public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
     private FragmentManager fMgr;
     private String nextPlayerLabel;
     private int numClicks;
-    private ToggleButton[] buttons;
+    private Vibrator myVib;
 
     public TurnClicker(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        myVib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         TypedArray xmlAttrs = context.obtainStyledAttributes(attrs, R.styleable.TurnClicker, 0, 0);
         numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
@@ -64,24 +66,34 @@ public class TurnClicker extends LinearLayout {
         // if it's the last button, add a listener that spawns a question
         int numButtons = clickGroup.getChildCount();
         for (int j = 0; j < numButtons; j++) {
-            ToggleButton lastTb = (ToggleButton) clickGroup.getChildAt(numButtons - 1);
+            ToggleButton tb = (ToggleButton) clickGroup.getChildAt(j);
+            tb.setOnClickListener(this);
+            //getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+        }
 
-            lastTb.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton ToggleButton, boolean isChecked) {
-                    if (isChecked) {
-                        SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
+        ToggleButton lastTb = (ToggleButton) clickGroup.getChildAt(numButtons - 1);
 
-                        if (fMgr != null) {
-                            FragmentTransaction ft = fMgr.beginTransaction();
-                            switchFragmentDialog.show(ft, null);
-                        } else {
-                            Log.d("test", "fMgr is null");
-                        }
+        lastTb.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton ToggleButton, boolean isChecked) {
+                if (isChecked) {
+                    SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
+
+                    if (fMgr != null) {
+                        FragmentTransaction ft = fMgr.beginTransaction();
+                        switchFragmentDialog.show(ft, null);
+                    } else {
+                        Log.d("test", "fMgr is null");
                     }
                 }
-            });
-        }
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        myVib.vibrate(25);
     }
 
     public void clearButtons() {

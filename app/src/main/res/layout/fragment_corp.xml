@@ -71,11 +71,11 @@
     <net.pooksoft.nrclicker.ui.TurnClicker
         app:numClicks="3"
         app:nextPlayerLabel="Runner"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:id="@+id/turnClickerCorp"
         android:layout_weight="1"
         >
