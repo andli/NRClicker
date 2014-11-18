@@ -75,7 +75,7 @@
             app:fontSize="22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lnpAgendas"
+            android:id="@+id/lnpAgendasRunner"
             android:gravity="fill"
             android:layout_gravity="fill"
             android:layout_weight=".5" />
@@ -88,7 +88,7 @@
             app:fontSize="22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lnpCredits"
+            android:id="@+id/lnpCreditsRunner"
             android:gravity="fill"
             android:layout_gravity="fill"
             android:layout_weight=".5" />

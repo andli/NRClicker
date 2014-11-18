@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
+
 /**
  * Created by andreas on 2014-09-01.
  */
@@ -32,17 +34,5 @@ public class RunnerFragment extends Fragment {
         //args.putString("nextPlayerLabel", "Corp");
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public void clearValues() {
-        /*LinearLayout layout = (LinearLayout)this.getView().getRootView();
-
-        int count = layout.getChildCount();
-        for (int i = 0; i <= count; i++) {
-            View v = layout.getChildAt(i);
-            if (v instanceof LabeledNumberPicker) {
-                ((LabeledNumberPicker) v).reset();
-            }
-        }*/
     }
 }

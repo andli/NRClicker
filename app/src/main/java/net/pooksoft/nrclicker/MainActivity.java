@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
 
 import java.util.Locale;
@@ -101,9 +102,17 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
             tc.clearButtons();
 
-            ((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
+            /*((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
             ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();
-
+*/
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpBadPublicity)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpBrainDamage)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpLinkStrength)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpTags)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpAgendasCorp)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpCreditsCorp)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpAgendasRunner)).reset();
+            ((LabeledNumberPicker)this.findViewById(R.id.lnpCreditsRunner)).reset();
             mViewPager.setCurrentItem(CORP);
 
             return true;

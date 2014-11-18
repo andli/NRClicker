@@ -15,13 +15,11 @@ import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
  */
 public class CorpFragment extends Fragment {
 
-    private View fragView;
-
     public CorpFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragView = inflater.inflate(R.layout.fragment_corp, null);
+        View fragView = inflater.inflate(R.layout.fragment_corp, null);
         return fragView;
     }
 
@@ -37,21 +35,4 @@ public class CorpFragment extends Fragment {
         return fragment;
     }
 
-    public void clearValues() {
-        ViewGroup layout;
-        try {
-            layout = (ViewGroup) fragView.findViewById(R.id.FragmentContainer);
-
-            int count = layout.getChildCount();
-            for (int i = 0; i <= count; i++) {
-                View v = layout.getChildAt(i);
-                if (v instanceof LabeledNumberPicker) {
-                    ((LabeledNumberPicker) v).reset();
-                }
-            }
-        }
-        catch (NullPointerException e) {
-            Log.d("test", e.toString());
-        }
-    }
 }
