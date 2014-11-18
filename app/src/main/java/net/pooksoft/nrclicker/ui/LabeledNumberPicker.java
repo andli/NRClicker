@@ -19,6 +19,7 @@ import java.util.LinkedList;
 public class LabeledNumberPicker extends LinearLayout implements NumberPicker.OnValueChangeListener {
 
     private static final int CHANGE_TIMEOUT = 2000;
+    private int startValue;
     NumberPicker np;
     VerticalTextView label;
     TextView log;
@@ -39,11 +40,6 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         }
     };
 
-
-    public LabeledNumberPicker(Context context) {
-        this(context, null);
-    }
-
     public LabeledNumberPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -54,7 +50,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         String titleText = a.getString(R.styleable.LabeledNumberPicker_labelText);
         int rangeMax = a.getInteger(R.styleable.LabeledNumberPicker_rangeMax, 0);
         int rangeMin = a.getInteger(R.styleable.LabeledNumberPicker_rangeMin, 0);
-        int startValue = a.getInteger(R.styleable.LabeledNumberPicker_startValue, 0);
+        startValue = a.getInteger(R.styleable.LabeledNumberPicker_startValue, 0);
         float fontSize = a.getFloat(R.styleable.LabeledNumberPicker_fontSize, 0);
         a.recycle();
 
@@ -103,5 +99,9 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         }
     }
 
+    public void reset() {
+        np = (NumberPicker)findViewById(R.id.numpick);
+        np.setValue(this.startValue);
+    }
 
 }

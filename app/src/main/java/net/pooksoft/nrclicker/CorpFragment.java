@@ -6,19 +6,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 
 /**
  * Created by andreas on 2014-09-01.
  */
 public class CorpFragment extends Fragment {
 
+    private View fragView;
+
     public CorpFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_corp, null);
-
-        return view;
+        fragView = inflater.inflate(R.layout.fragment_corp, null);
+        return fragView;
     }
 
     /**
@@ -34,6 +38,20 @@ public class CorpFragment extends Fragment {
     }
 
     public void clearValues() {
-        Log.d("test", "Clear values in corp frag");
+        ViewGroup layout;
+        try {
+            layout = (ViewGroup) fragView.findViewById(R.id.FragmentContainer);
+
+            int count = layout.getChildCount();
+            for (int i = 0; i <= count; i++) {
+                View v = layout.getChildAt(i);
+                if (v instanceof LabeledNumberPicker) {
+                    ((LabeledNumberPicker) v).reset();
+                }
+            }
+        }
+        catch (NullPointerException e) {
+            Log.d("test", e.toString());
+        }
     }
 }

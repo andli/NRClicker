@@ -2,7 +2,6 @@ package net.pooksoft.nrclicker;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +35,14 @@ public class RunnerFragment extends Fragment {
     }
 
     public void clearValues() {
-        Log.d("test", "Clear values in runner frag");
+        /*LinearLayout layout = (LinearLayout)this.getView().getRootView();
 
-        //TODO: get the lnp's and reset them
+        int count = layout.getChildCount();
+        for (int i = 0; i <= count; i++) {
+            View v = layout.getChildAt(i);
+            if (v instanceof LabeledNumberPicker) {
+                ((LabeledNumberPicker) v).reset();
+            }
+        }*/
     }
 }
