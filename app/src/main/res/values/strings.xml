@@ -11,5 +11,8 @@
     <string name="placeholder_LNP_log">...</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="rotation_enabled">Rotation</string>
+    <string name="rotation_enabled_desc">Rotate when switching player</string>
+    <string name="app_preferences">Behaviours</string>
 
 </resources>

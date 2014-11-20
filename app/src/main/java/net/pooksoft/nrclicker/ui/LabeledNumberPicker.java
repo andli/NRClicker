@@ -57,9 +57,9 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.labeled_number_picker, this, true);
-        label = (VerticalTextView)findViewById(R.id.label);
-        log = (TextView)findViewById(R.id.logText);
-        np = (NumberPicker)findViewById(R.id.numpick);
+        label = (VerticalTextView) findViewById(R.id.label);
+        log = (TextView) findViewById(R.id.logText);
+        np = (NumberPicker) findViewById(R.id.numpick);
 
         label.setTextSize(fontSize);
         setLabelText(titleText);
@@ -91,6 +91,12 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         }
     }
 
+    private void clearLogger() {
+        loggedValues.clear();
+        log.setText("");
+        log.append("...");
+    }
+
     @Override
     public void onValueChange(NumberPicker numberPicker, int i, int i2) {
         if (!CHANGE_RUNNING) {
@@ -100,8 +106,9 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
     }
 
     public void reset() {
-        np = (NumberPicker)findViewById(R.id.numpick);
+        np = (NumberPicker) findViewById(R.id.numpick);
         np.setValue(this.startValue);
+        clearLogger();
     }
 
 }

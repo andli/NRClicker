@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -47,7 +48,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -97,6 +98,10 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.FragmentContainer, SettingsFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit();
             return true;
         }
 
