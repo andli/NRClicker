@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Surface;
 
 import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
@@ -44,6 +46,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -187,5 +191,12 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
         mViewPager.setCurrentItem(i);
 
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        if (rotation == Surface.ROTATION_0) {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        }
+        else {
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 }
