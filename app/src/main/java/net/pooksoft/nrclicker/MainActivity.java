@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
@@ -24,6 +26,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
     private static final int CORP = 0;
     private static final int RUNNER = 1;
+
+    private int numRounds = 0;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -124,6 +128,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             ((LabeledNumberPicker)this.findViewById(R.id.lnpCreditsRunner)).reset();
             mViewPager.setCurrentItem(CORP);
 
+            numRounds = 0;
+
             return true;
         }
 
@@ -196,12 +202,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
         mViewPager.setCurrentItem(i);
 
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        if (rotation == Surface.ROTATION_0) {
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-        }
-        else {
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean rotate = prefs.getBoolean("rotation_enabled", true);
+        Log.d("test", Boolean.toString(rotate));
+        if (rotate) {
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            if (rotation == Surface.ROTATION_0) {
+                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+            } else {
+                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
         }
     }
 }
