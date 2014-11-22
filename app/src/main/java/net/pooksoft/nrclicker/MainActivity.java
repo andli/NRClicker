@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
+import android.view.WindowManager;
 
 import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
@@ -83,6 +84,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        // Keep the screen on in this app
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
