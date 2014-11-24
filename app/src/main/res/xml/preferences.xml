@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/app_preferences">
+    <PreferenceCategory android:title="@string/app_behaviours">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="rotation_enabled"
             android:summary="@string/rotation_enabled_desc"
             android:title="@string/rotation_enabled" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/app_preferences">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="screen_sleep_disabled"
+            android:summary="@string/screen_sleep_disabled_desc"
+            android:title="@string/screen_sleep_disabled" />
     </PreferenceCategory>
 </PreferenceScreen>

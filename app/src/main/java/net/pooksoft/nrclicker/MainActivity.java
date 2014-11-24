@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import net.pooksoft.nrclicker.ui.TurnClicker;
 import java.util.Locale;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends Activity implements ActionBar.TabListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final int CORP = 0;
     private static final int RUNNER = 1;
@@ -54,6 +55,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -106,10 +109,14 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.FragmentContainer, SettingsFragment.newInstance())
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(intent, 0);
+
+            /*getFragmentManager().beginTransaction()
+                    .add(R.id.main_container, SettingsFragment.newInstance())
                     .addToBackStack(null)
-                    .commit();
+                    .commit();*/
             return true;
         }
 
@@ -153,6 +160,23 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if (s.equals("screen_sleep_disabled")) {
+
+            boolean sleep_off = sharedPreferences.getBoolean("screen_sleep_disabled", true);
+            Log.d("test", "sleep_off: " + Boolean.toString(sleep_off));
+            if (sleep_off) {
+                // Don't keep the screen on in this app
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+            else {
+                // Keep the screen on in this app
+                this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+        }
     }
 
     /**
@@ -208,7 +232,6 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean rotate = prefs.getBoolean("rotation_enabled", true);
-        Log.d("test", Boolean.toString(rotate));
         if (rotate) {
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             if (rotation == Surface.ROTATION_0) {

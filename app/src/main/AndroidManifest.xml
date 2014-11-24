@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.pooksoft.nrclicker"
-    >
+    package="net.pooksoft.nrclicker" >
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_nrclicker"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="net.pooksoft.nrclicker.MainActivity"
             android:label="@string/app_name" >
@@ -18,8 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="net.pooksoft.nrclicker.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="net.pooksoft.nrclicker.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.pooksoft.nrclicker.MainActivity" />
+        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 </manifest>
