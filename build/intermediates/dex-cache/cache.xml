@@ -2,34 +2,34 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-741d83e728307e7fb99f43a29c9f590e563f99af.jar"
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.0\libs\internal_impl-21.0.0.jar"
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-54585e3f6979670ec2f01bea1b7b44bae57dc5d8.jar"
+        jar="C:\Users\andreas\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="5a8e01742aee890c56fe638ea7c921b91a3fdc62"/>
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6"/>
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-b7839b0039717350e87a8e929943f82868cc158e.jar"
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.0\classes.jar"
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-050795d0afe0ab16cf31880c045c7e59954b0add.jar"
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="0c0c19759e5868604a3b4c2c0074ee9404d73c76"/>
+        sha1="9346da9fb778af9e451211bbc3541daced174ba7"/>
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-8b7a73b6846c637f5b5719e373ef8ca43d4972f2.jar"
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-1182f8028a07387c7a0ef2e7703b75bfe194af89.jar"
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
+        sha1="61965ae058916e6a57950dd61b0164dc866af19a"/>
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-9ef19b3ea394f746e420683b2403b987afff7ff9.jar"
-        jar="C:\Users\andreas\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-616cbd0ac1ad8abe43f854c769f08509138ffbf1.jar"
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e"/>
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-0014f23a10d600f06b435cd7078f38d8f0fbf486.jar"
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-c030dccd8b30c6d1b4762131f257a55a60fc9855.jar"
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f"/>
 
 </pre-dex-items>

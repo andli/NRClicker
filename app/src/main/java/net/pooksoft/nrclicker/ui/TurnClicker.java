@@ -111,4 +111,11 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (dps * scale + 0.5f);
     }
+
+    public void clearLastButton() {
+        RadioGroup clickGroup = (RadioGroup) findViewById(R.id.clickGroup);
+            ToggleButton tb = (ToggleButton)clickGroup.getChildAt(clickGroup.getChildCount() - 1);
+            tb.setChecked(false);
+
+    }
 }

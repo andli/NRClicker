@@ -21,6 +21,7 @@ public class SwitchFragmentDialog extends DialogFragment {
         Bundle args = new Bundle();
         args.putString("nextPlayerLabel", nextPlayerLabel);
         frag.setArguments(args);
+        frag.setCancelable(false);
         return frag;
     }
 
@@ -38,7 +39,7 @@ public class SwitchFragmentDialog extends DialogFragment {
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        ((MainActivity)getActivity()).doNegativeClick();
                     }
                 });
         // Create the AlertDialog object and return it

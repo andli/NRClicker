@@ -218,4 +218,16 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             }
         }
     }
+
+    public void doNegativeClick() {
+        int i = mViewPager.getCurrentItem();
+        if (i == CORP) {
+            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
+            tc.clearLastButton();
+        }
+        else {
+            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
+            tc.clearLastButton();
+        }
+    }
 }
