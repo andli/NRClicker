@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import net.pooksoft.nrclicker.R;
+import net.pooksoft.nrclicker.ValueChangeListener;
 
 import java.util.LinkedList;
 
@@ -25,6 +27,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
     TextView log;
     LinkedList<Integer> loggedValues;
     final Handler changeHandler = new Handler();
+    private ValueChangeListener activityListener;
 
     private int NUM_LOG_VALS;
     private boolean CHANGE_RUNNING = false;
@@ -98,11 +101,22 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
     }
 
     @Override
-    public void onValueChange(NumberPicker numberPicker, int i, int i2) {
+    public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
         if (!CHANGE_RUNNING) {
             CHANGE_RUNNING = true;
             changeHandler.postDelayed(runnable, CHANGE_TIMEOUT);
         }
+        try {
+            this.activityListener.onValueUpdated(numberPicker, newVal);
+        }
+        catch (NullPointerException e) {
+            Log.d("test", "onValueChange in lnp, no target listener");
+        }
+    }
+
+    public void setOnValueChangeListener(ValueChangeListener listener) {
+        this.activityListener = listener;
+        Log.d("test", "set listener in lnp");
     }
 
     public void reset() {

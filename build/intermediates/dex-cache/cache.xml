@@ -20,16 +20,16 @@
         revision="21.1.1"
         sha1="61965ae058916e6a57950dd61b0164dc866af19a"/>
     <item
-        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-616cbd0ac1ad8abe43f854c769f08509138ffbf1.jar"
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
-    <item
         dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-c030dccd8b30c6d1b4762131f257a55a60fc9855.jar"
         jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f"/>
+    <item
+        dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-616cbd0ac1ad8abe43f854c769f08509138ffbf1.jar"
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
 
 </pre-dex-items>

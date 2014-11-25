@@ -11,25 +11,35 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.NumberPicker;
 
 import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends Activity implements
+        ActionBar.TabListener,
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        ValueChangeListener {
 
     private static final int CORP = 0;
     private static final int RUNNER = 1;
 
-    private int numRounds = 0;
+    private int numRounds = 1;
+    private int creditsCorp;
+    private int creditsRunner;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -39,11 +49,12 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
      * {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    ActionBar mActionBar;
+    ArrayList<Integer> lnps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +62,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
         setContentView(R.layout.activity_main);
 
         // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mActionBar = getActionBar();
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -72,7 +83,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
+                mActionBar.setSelectedNavigationItem(position);
             }
         });
 
@@ -82,11 +93,28 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
             // the adapter. Also specify this Activity object, which implements
             // the TabListener interface, as the callback (listener) for when
             // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
+            mActionBar.addTab(
+                    mActionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
+        lnps = new ArrayList<Integer> ();
+        lnps.add(R.id.lnpAgendasCorp);
+        lnps.add(R.id.lnpAgendasRunner);
+        lnps.add(R.id.lnpBadPublicity);
+        lnps.add(R.id.lnpBrainDamage);
+        lnps.add(R.id.lnpCreditsCorp);
+        lnps.add(R.id.lnpCreditsRunner);
+        lnps.add(R.id.lnpLinkStrength);
+        lnps.add(R.id.lnpTags);
+
+        this.setTitle(this.getTitle() + " - turn " + numRounds);
+/*
+        for (int lnp: lnps) {
+            ((LabeledNumberPicker)this.findViewById(lnp)).setOnValueChangeListener(this);
+        }
+*/
 
         // Keep the screen on in this app
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -127,19 +155,17 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
             tc.clearButtons();
 
             /*((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
-            ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();
-*/
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpBadPublicity)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpBrainDamage)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpLinkStrength)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpTags)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpAgendasCorp)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpCreditsCorp)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpAgendasRunner)).reset();
-            ((LabeledNumberPicker)this.findViewById(R.id.lnpCreditsRunner)).reset();
-            mViewPager.setCurrentItem(CORP);
+            ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();*/
 
-            numRounds = 0;
+            for (int lnp: lnps) {
+                ((LabeledNumberPicker)this.findViewById(lnp)).reset();
+            }
+
+            /**
+             * Init the app
+             */
+            mViewPager.setCurrentItem(CORP);
+            numRounds = 1;
 
             return true;
         }
@@ -152,6 +178,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -176,6 +203,21 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
                 // Keep the screen on in this app
                 this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
+        }
+    }
+
+    @Override
+    public void onValueUpdated(View view, int value) {
+        Log.d("test", "New val from " + view.getId() + "(" + R.id.lnpCreditsCorp + "," + R.id.lnpCreditsRunner+")");
+        switch (view.getId()) {
+            case R.id.lnpCreditsCorp:
+                creditsCorp = value;
+                break;
+            case R.id.lnpCreditsRunner:
+                creditsRunner = value;
+                break;
+            default:
+                break;
         }
     }
 
@@ -212,9 +254,9 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
             Locale l = Locale.getDefault();
             switch (position) {
                 case CORP:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_section1).toUpperCase(l) + " (" + Integer.toString(creditsCorp) + ")";
                 case RUNNER:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_section2).toUpperCase(l) + " (" + Integer.toString(creditsRunner) + ")";
             }
             return null;
         }
