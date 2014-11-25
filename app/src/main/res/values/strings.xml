@@ -13,9 +13,9 @@
     <string name="no">No</string>
     <string name="rotation_enabled">Rotation</string>
     <string name="rotation_enabled_desc">Rotate when switching player</string>
-    <string name="app_preferences">Behaviours</string>
+    <string name="app_preferences">Preferences</string>
+    <string name="app_behaviours">Behaviours</string>
     <string name="screen_sleep_disabled_desc">If you need to save power, untick this.</string>
     <string name="screen_sleep_disabled">Disable screen sleep</string>
-    <string name="app_behaviours">Behaviours</string>
 
 </resources>

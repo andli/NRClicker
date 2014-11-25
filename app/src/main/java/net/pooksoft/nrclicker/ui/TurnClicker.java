@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Vibrator;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,9 +66,17 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
         // if it's the last button, add a listener that spawns a question
         int numButtons = clickGroup.getChildCount();
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int densityDpi = (int)(metrics.density * 160f);
+
         for (int j = 0; j < numButtons; j++) {
             ToggleButton tb = (ToggleButton) clickGroup.getChildAt(j);
             tb.setOnClickListener(this);
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tb.getLayoutParams();
+            params.width = (int)Math.round(densityDpi * 0.5);
+            params.height = (int)Math.round(densityDpi * 0.5);
+            tb.setLayoutParams(params);
             //getApplicationContext().getSystemService(VIBRATOR_SERVICE);
         }
 
@@ -97,7 +106,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
     }
 
     public void clearButtons() {
-        RadioGroup clickGroup = (RadioGroup) findViewById(R.id.clickGroup);
+        LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
         int num = clickGroup.getChildCount();
         ArrayList<ToggleButton> listOfRadioButtons = new ArrayList<ToggleButton>();
         for (int i = 0; i < num; i++) {
@@ -113,7 +122,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
     }
 
     public void clearLastButton() {
-        RadioGroup clickGroup = (RadioGroup) findViewById(R.id.clickGroup);
+        LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
             ToggleButton tb = (ToggleButton)clickGroup.getChildAt(clickGroup.getChildCount() - 1);
             tb.setChecked(false);
 

@@ -111,7 +111,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener, Sha
         if (id == R.id.action_settings) {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SettingsActivity.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 1);
 
             /*getFragmentManager().beginTransaction()
                     .add(R.id.main_container, SettingsFragment.newInstance())
