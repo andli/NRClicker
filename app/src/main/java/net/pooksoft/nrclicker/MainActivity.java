@@ -5,21 +5,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.NumberPicker;
 
 import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
@@ -36,9 +34,7 @@ public class MainActivity extends Activity implements
     private static final int CORP = 0;
     private static final int RUNNER = 1;
 
-    private int numRounds = 1;
-    private int creditsCorp;
-    private int creditsRunner;
+    private int numTurns = 0;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -55,6 +51,11 @@ public class MainActivity extends Activity implements
     ViewPager mViewPager;
     ActionBar mActionBar;
     ArrayList<Integer> lnps;
+
+    public String getApplicationName() {
+        int stringId = getApplicationContext().getApplicationInfo().labelRes;
+        return getApplicationContext().getString(stringId);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,27 +100,11 @@ public class MainActivity extends Activity implements
                             .setTabListener(this));
         }
 
-        lnps = new ArrayList<Integer> ();
-        lnps.add(R.id.lnpAgendasCorp);
-        lnps.add(R.id.lnpAgendasRunner);
-        lnps.add(R.id.lnpBadPublicity);
-        lnps.add(R.id.lnpBrainDamage);
-        lnps.add(R.id.lnpCreditsCorp);
-        lnps.add(R.id.lnpCreditsRunner);
-        lnps.add(R.id.lnpLinkStrength);
-        lnps.add(R.id.lnpTags);
-
-        this.setTitle(this.getTitle() + " - turn " + numRounds);
-/*
-        for (int lnp: lnps) {
-            ((LabeledNumberPicker)this.findViewById(lnp)).setOnValueChangeListener(this);
-        }
-*/
+        updateTitle();
 
         // Keep the screen on in this app
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,16 +142,30 @@ public class MainActivity extends Activity implements
             /*((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
             ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();*/
 
+            lnps = new ArrayList<Integer> ();
+            lnps.add(R.id.lnpAgendasCorp);
+            lnps.add(R.id.lnpAgendasRunner);
+            lnps.add(R.id.lnpBadPublicity);
+            lnps.add(R.id.lnpBrainDamage);
+            lnps.add(R.id.lnpCreditsCorp);
+            lnps.add(R.id.lnpCreditsRunner);
+            lnps.add(R.id.lnpLinkStrength);
+            lnps.add(R.id.lnpTags);
+
             for (int lnp: lnps) {
                 ((LabeledNumberPicker)this.findViewById(lnp)).reset();
             }
+
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
             /**
              * Init the app
              */
             mViewPager.setCurrentItem(CORP);
-            numRounds = 1;
-
+            numTurns = 0;
+            onValueUpdated(R.id.lnpCreditsCorp, 5);
+            onValueUpdated(R.id.lnpCreditsRunner, 5);
+            updateTitle();
             return true;
         }
 
@@ -207,18 +206,20 @@ public class MainActivity extends Activity implements
     }
 
     @Override
-    public void onValueUpdated(View view, int value) {
-        Log.d("test", "New val from " + view.getId() + "(" + R.id.lnpCreditsCorp + "," + R.id.lnpCreditsRunner+")");
-        switch (view.getId()) {
+    public void onValueUpdated(int id, int value) {
+        switch (id) {
             case R.id.lnpCreditsCorp:
-                creditsCorp = value;
+                mSectionsPagerAdapter.setCredits(CORP, value);
+                mActionBar.getTabAt(CORP).setText(mSectionsPagerAdapter.getPageTitle(CORP));
                 break;
             case R.id.lnpCreditsRunner:
-                creditsRunner = value;
+                mSectionsPagerAdapter.setCredits(RUNNER, value);
+                mActionBar.getTabAt(RUNNER).setText(mSectionsPagerAdapter.getPageTitle(RUNNER));
                 break;
             default:
                 break;
         }
+
     }
 
     /**
@@ -226,6 +227,9 @@ public class MainActivity extends Activity implements
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private int creditsCorp = 5;
+        private int creditsRunner = 5;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -260,6 +264,17 @@ public class MainActivity extends Activity implements
             }
             return null;
         }
+
+        public void setCredits(int position, int value) {
+            switch (position) {
+                case CORP:
+                    creditsCorp = value;
+                case RUNNER:
+                    creditsRunner = value;
+            }
+
+            this.notifyDataSetChanged();
+        }
     }
 
     public void doPositiveClick() {
@@ -282,6 +297,9 @@ public class MainActivity extends Activity implements
                 this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
         }
+
+        numTurns++;
+        updateTitle();
     }
 
     public void doNegativeClick() {
@@ -294,5 +312,22 @@ public class MainActivity extends Activity implements
             TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
             tc.clearLastButton();
         }
+    }
+
+
+    private void updateTitle() {
+        this.setTitle(this.getApplicationName() + " - turn " + getNumRounds());
+    }
+
+    private String getNumRounds() {
+        return fmt(Math.floor((numTurns - this.numTurns % 2) / 2) + 1);
+    }
+
+    public static String fmt(double d)
+    {
+        if(d == (long) d)
+            return String.format("%d",(long)d);
+        else
+            return String.format("%s",d);
     }
 }

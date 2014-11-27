@@ -107,7 +107,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
             changeHandler.postDelayed(runnable, CHANGE_TIMEOUT);
         }
         try {
-            this.activityListener.onValueUpdated(numberPicker, newVal);
+            this.activityListener.onValueUpdated(this.getId(), newVal);
         }
         catch (NullPointerException e) {
             Log.d("test", "onValueChange in lnp, no target listener");
@@ -116,7 +116,6 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
 
     public void setOnValueChangeListener(ValueChangeListener listener) {
         this.activityListener = listener;
-        Log.d("test", "set listener in lnp");
     }
 
     public void reset() {

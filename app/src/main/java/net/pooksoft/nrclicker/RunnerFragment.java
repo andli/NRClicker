@@ -18,22 +18,22 @@ import java.util.ArrayList;
 public class RunnerFragment extends Fragment {
 
     private ArrayList<Integer> lnps;
-    private View view;
+    private ValueChangeListener vcListener;
 
     public RunnerFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_runner, null);
+        View fragView = inflater.inflate(R.layout.fragment_runner, null);
 
-        return view;
-    }
+        try {
+            vcListener = (ValueChangeListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString()
+                    + " must implement ValueChangeListener");
+        }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-/*        lnps = new ArrayList<Integer>();
+        lnps = new ArrayList<Integer>();
         lnps.add(R.id.lnpAgendasRunner);
         lnps.add(R.id.lnpBrainDamage);
         lnps.add(R.id.lnpCreditsRunner);
@@ -41,10 +41,16 @@ public class RunnerFragment extends Fragment {
         lnps.add(R.id.lnpTags);
 
         for (int lnpId: lnps) {
-            LabeledNumberPicker lnp = ((LabeledNumberPicker) view.findViewById(lnpId));
-            //lnp.setOnValueChangeListener((MainActivity) activity);
-            Log.d("test", lnp.toString());
-        }*/
+            LabeledNumberPicker lnp = (LabeledNumberPicker) fragView.findViewById(lnpId);
+            try {
+                lnp.setOnValueChangeListener(vcListener);
+            }
+            catch (Exception e) {
+                Log.d("test", e.getMessage());
+            }
+        }
+
+        return fragView;
     }
 
     /**
