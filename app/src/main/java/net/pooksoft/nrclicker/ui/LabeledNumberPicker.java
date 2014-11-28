@@ -2,10 +2,13 @@ package net.pooksoft.nrclicker.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import net.pooksoft.nrclicker.R;
 import net.pooksoft.nrclicker.ValueChangeListener;
 
+import java.lang.reflect.Field;
 import java.util.LinkedList;
 
 /**
@@ -22,6 +26,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
 
     private static final int CHANGE_TIMEOUT = 2000;
     private int startValue;
+    private boolean danger;
     NumberPicker np;
     VerticalTextView label;
     TextView log;
@@ -53,6 +58,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         String titleText = a.getString(R.styleable.LabeledNumberPicker_labelText);
         int rangeMax = a.getInteger(R.styleable.LabeledNumberPicker_rangeMax, 0);
         int rangeMin = a.getInteger(R.styleable.LabeledNumberPicker_rangeMin, 0);
+        danger = a.getBoolean(R.styleable.LabeledNumberPicker_danger, false);
         startValue = a.getInteger(R.styleable.LabeledNumberPicker_startValue, 0);
         float fontSize = a.getFloat(R.styleable.LabeledNumberPicker_fontSize, 0);
         a.recycle();
@@ -106,6 +112,17 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
             CHANGE_RUNNING = true;
             changeHandler.postDelayed(runnable, CHANGE_TIMEOUT);
         }
+
+        if (danger) {
+            if (newVal > 0) {
+                setNumberPickerTextColor(numberPicker, android.graphics.Color.argb(255, 255, 0, 0));
+            }
+            else {
+                setNumberPickerTextColor(numberPicker, label.getTextColors().getDefaultColor());
+            }
+        }
+
+
         try {
             this.activityListener.onValueUpdated(this.getId(), newVal);
         }
@@ -122,6 +139,35 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         np = (NumberPicker) findViewById(R.id.numpick);
         np.setValue(this.startValue);
         clearLogger();
+    }
+
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
+    {
+        final int count = numberPicker.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = numberPicker.getChildAt(i);
+            if(child instanceof EditText){
+                try{
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText)child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                }
+                catch(NoSuchFieldException e){
+                    Log.w("setNumberPickerTextColor", e);
+                }
+                catch(IllegalAccessException e){
+                    Log.w("setNumberPickerTextColor", e);
+                }
+                catch(IllegalArgumentException e){
+                    Log.w("setNumberPickerTextColor", e);
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -18,6 +18,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText="Bad publicity"
+            app:danger="true"
             app:rangeMax="10"
             app:rangeMin="0"
             app:startValue="0"
@@ -42,6 +43,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText=" Agendas"
+            app:danger="false"
             app:rangeMax="7"
             app:rangeMin="0"
             app:startValue="0"
@@ -55,6 +57,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText=" Credits"
+            app:danger="false"
             app:rangeMax="99"
             app:rangeMin="0"
             app:startValue="5"

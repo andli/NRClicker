@@ -3,6 +3,7 @@
     <declare-styleable name="LabeledNumberPicker">
         <attr name="labelText" format="string" localization="suggested" />
         <attr name="fontSize" format="string" localization="suggested" />
+        <attr name="danger" format="boolean" />
         <attr name="rangeMax" format="integer" />
         <attr name="rangeMin" format="integer" />
         <attr name="startValue" format="integer" />

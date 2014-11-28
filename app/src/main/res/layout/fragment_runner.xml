@@ -18,6 +18,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText="Link Strength"
+            app:danger="false"
             app:rangeMax="5"
             app:rangeMin="0"
             app:startValue="0"
@@ -31,6 +32,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText=" Tags"
+            app:danger="true"
             app:rangeMax="50"
             app:rangeMin="0"
             app:startValue="0"
@@ -44,6 +46,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText="Brain damage"
+            app:danger="true"
             app:rangeMax="9"
             app:rangeMin="0"
             app:startValue="0"
@@ -69,6 +72,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText=" Agendas"
+            app:danger="false"
             app:rangeMax="7"
             app:rangeMin="0"
             app:startValue="0"
@@ -82,6 +86,7 @@
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText=" Credits"
+            app:danger="false"
             app:rangeMax="99"
             app:rangeMin="0"
             app:startValue="5"
