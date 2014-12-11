@@ -19,7 +19,7 @@
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
             app:labelText="Bad publicity"
             app:danger="true"
-            app:rangeMax="10"
+            app:rangeMax="9"
             app:rangeMin="0"
             app:startValue="0"
             app:fontSize="14"

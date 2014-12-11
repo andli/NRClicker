@@ -8,15 +8,10 @@ android {
         applicationId "net.pooksoft.nrclicker"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 7
-        versionName "1.1"
+        versionCode 8
+        versionName "1.11"
     }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+
 }
 
 dependencies {
