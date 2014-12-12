@@ -80,10 +80,10 @@ public class SwitchFragmentDialog extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (autoSwitch) {
-            switchTimer = new CountDownTimer(3000, 1000) {
+            switchTimer = new CountDownTimer(3050, 1000) { // Add 50ms to compensate for discarded onTick events
                 @Override
                 public void onTick(long l) {
-                    mCountdownView.setText("Auto-switching in: " + ((int) Math.round(l / 1000.0) - 1) + "...");
+                    mCountdownView.setText("Switching in: " + ((int) Math.round(l / 1000.0)) + "...");
                 }
 
                 @Override

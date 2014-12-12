@@ -138,6 +138,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
     public void reset() {
         np = (NumberPicker) findViewById(R.id.numpick);
         np.setValue(this.startValue);
+        setNumberPickerTextColor(np, label.getTextColors().getDefaultColor());
         clearLogger();
     }
 

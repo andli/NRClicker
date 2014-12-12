@@ -1,0 +1,5 @@
+<resources>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="hello_world">Thank you for buying the paid version!</string>
+    <string name="action_settings">Settings</string>
+</resources>

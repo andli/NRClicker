@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -124,6 +123,18 @@ public class MainActivity extends Activity implements
         if (id == R.id.action_settings) {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(intent, 1);
+
+            /*getFragmentManager().beginTransaction()
+                    .add(R.id.main_container, SettingsFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit();*/
+            return true;
+        }
+
+        if (id == R.id.action_statistics) {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, StatisticsActivity.class);
             startActivityForResult(intent, 1);
 
             /*getFragmentManager().beginTransaction()

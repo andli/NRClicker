@@ -19,5 +19,6 @@
     <string name="screen_sleep_disabled">Disable screen sleep</string>
     <string name="auto_switch_player_desc">After 3 seconds, the app will switch to the next player if not aborted.</string>
     <string name="auto_switch_player_enabled">Automatic player switching</string>
+    <string name="action_statistics">Statistics</string>
 
 </resources>
