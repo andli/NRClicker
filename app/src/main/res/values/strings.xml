@@ -17,5 +17,7 @@
     <string name="app_behaviours">Behaviours</string>
     <string name="screen_sleep_disabled_desc">If you need to save power, untick this.</string>
     <string name="screen_sleep_disabled">Disable screen sleep</string>
+    <string name="auto_switch_player_desc">After 3 seconds, the app will switch to the next player if not aborted.</string>
+    <string name="auto_switch_player_enabled">Automatic player switching</string>
 
 </resources>

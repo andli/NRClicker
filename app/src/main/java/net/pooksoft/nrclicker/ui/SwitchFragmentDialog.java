@@ -4,7 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.pooksoft.nrclicker.MainActivity;
 import net.pooksoft.nrclicker.R;
@@ -13,6 +20,11 @@ import net.pooksoft.nrclicker.R;
  * Created by andreas on 2014-11-12.
  */
 public class SwitchFragmentDialog extends DialogFragment {
+
+    private TextView mCountdownView;
+    private AlertDialog alertDialog;
+    private CountDownTimer switchTimer;
+    private boolean autoSwitch;
 
     public SwitchFragmentDialog() {}
 
@@ -27,22 +39,60 @@ public class SwitchFragmentDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-         String msgString = "Switch to " + getArguments().getString("nextPlayerLabel") + "?";
+        String msgString = "Switch to " + getArguments().getString("nextPlayerLabel") + "?";
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        autoSwitch = prefs.getBoolean("auto_switch_player_enabled", true);
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(msgString)//R.string.dialog_fire_missiles)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((MainActivity)getActivity()).doPositiveClick();
+                        if (autoSwitch) {
+                            switchTimer.cancel();
+                        }
+                        ((MainActivity) getActivity()).doPositiveClick();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((MainActivity)getActivity()).doNegativeClick();
+                        if (autoSwitch) {
+                            switchTimer.cancel();
+                        }
+                        ((MainActivity) getActivity()).doNegativeClick();
                     }
                 });
+
+        if (autoSwitch) {
+            View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_switch_dialog, null);
+            mCountdownView = (TextView) view.findViewById(R.id.countdownTimer);
+            builder.setView(view);
+        }
+
         // Create the AlertDialog object and return it
-        return builder.create();
+        alertDialog = builder.create();
+        return alertDialog;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (autoSwitch) {
+            switchTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long l) {
+                    mCountdownView.setText("Auto-switching in: " + ((int) Math.round(l / 1000.0) - 1) + "...");
+                }
+
+                @Override
+                public void onFinish() {
+
+                    alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+                }
+            };
+            switchTimer.start();
+        }
     }
 }

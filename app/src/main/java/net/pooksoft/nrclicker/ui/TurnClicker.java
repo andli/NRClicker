@@ -89,8 +89,9 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
                     SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
 
                     if (fMgr != null) {
-                        FragmentTransaction ft = fMgr.beginTransaction();
-                        switchFragmentDialog.show(ft, null);
+                        /*FragmentTransaction ft = fMgr.beginTransaction();
+                        switchFragmentDialog.show(ft, null);*/
+                        switchFragmentDialog.show(fMgr, "fragment_edit_name");
                     } else {
                         Log.d("test", "fMgr is null");
                     }
