@@ -42,7 +42,7 @@ public class SwitchFragmentDialog extends DialogFragment {
         String msgString = "Switch to " + getArguments().getString("nextPlayerLabel") + "?";
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        autoSwitch = prefs.getBoolean("auto_switch_player_enabled", true);
+        autoSwitch = prefs.getBoolean("auto_switch_player_enabled", false);
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
