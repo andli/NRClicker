@@ -1,6 +1,0 @@
-<resources>
-    <string name="title_activity_statistics">Statistics</string>
-    <string name="hello_world">Please buy the paid version to access the statistics.</string>
-    <string name="action_settings">Settings</string>
-    <string name="auto_switch_player_desc">PAID VERSION ONLY: After 3 seconds, the app will switch to the next player if not aborted.</string>
-</resources>

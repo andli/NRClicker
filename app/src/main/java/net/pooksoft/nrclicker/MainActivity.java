@@ -8,6 +8,9 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -28,12 +31,7 @@ import java.util.Locale;
 public class MainActivity extends Activity implements
         ActionBar.TabListener,
         SharedPreferences.OnSharedPreferenceChangeListener,
-        ValueChangeListener {
-
-    private static final int CORP = 0;
-    private static final int RUNNER = 1;
-
-    private int numTurns = 0;
+        ValueChangeListener, GameStateListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,6 +49,8 @@ public class MainActivity extends Activity implements
     ActionBar mActionBar;
     ArrayList<Integer> lnps;
 
+    GameState gs;
+
     public String getApplicationName() {
         int stringId = getApplicationContext().getApplicationInfo().labelRes;
         return getApplicationContext().getString(stringId);
@@ -60,6 +60,9 @@ public class MainActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        gs = new GameState(this);
+        this.setTitle(this.getApplicationName() + " - turn " + gs.getNumRoundsAsString());
 
         // Set up the action bar.
         mActionBar = getActionBar();
@@ -98,8 +101,6 @@ public class MainActivity extends Activity implements
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-
-        updateTitle();
 
         // Keep the screen on in this app
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -172,11 +173,11 @@ public class MainActivity extends Activity implements
             /**
              * Init the app
              */
-            mViewPager.setCurrentItem(CORP);
-            numTurns = 0;
+            mViewPager.setCurrentItem(GameState.CORP);
             onValueUpdated(R.id.lnpCreditsCorp, 5);
             onValueUpdated(R.id.lnpCreditsRunner, 5);
-            updateTitle();
+
+            gs = new GameState(this);
             return true;
         }
 
@@ -220,17 +221,23 @@ public class MainActivity extends Activity implements
     public void onValueUpdated(int id, int value) {
         switch (id) {
             case R.id.lnpCreditsCorp:
-                mSectionsPagerAdapter.setCredits(CORP, value);
-                mActionBar.getTabAt(CORP).setText(mSectionsPagerAdapter.getPageTitle(CORP));
+                mSectionsPagerAdapter.setCredits(GameState.CORP, value);
+                mActionBar.getTabAt(GameState.CORP).setText(mSectionsPagerAdapter.getPageTitle(GameState.CORP));
                 break;
             case R.id.lnpCreditsRunner:
-                mSectionsPagerAdapter.setCredits(RUNNER, value);
-                mActionBar.getTabAt(RUNNER).setText(mSectionsPagerAdapter.getPageTitle(RUNNER));
+                mSectionsPagerAdapter.setCredits(GameState.RUNNER, value);
+                mActionBar.getTabAt(GameState.RUNNER).setText(mSectionsPagerAdapter.getPageTitle(GameState.RUNNER));
                 break;
             default:
                 break;
         }
 
+    }
+
+    @Override
+    public void onNextTurn() {
+        // update app title
+        this.setTitle(this.getApplicationName() + " - turn " + gs.getNumRoundsAsString());
     }
 
     /**
@@ -250,9 +257,9 @@ public class MainActivity extends Activity implements
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             switch (position) {
-                case CORP:
+                case GameState.CORP:
                     return CorpFragment.newInstance();
-                case RUNNER:
+                case GameState.RUNNER:
                     return RunnerFragment.newInstance();
             }
             return null;
@@ -268,19 +275,19 @@ public class MainActivity extends Activity implements
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
-                case CORP:
-                    return getString(R.string.title_section1).toUpperCase(l) + " (" + Integer.toString(creditsCorp) + ")";
-                case RUNNER:
-                    return getString(R.string.title_section2).toUpperCase(l) + " (" + Integer.toString(creditsRunner) + ")";
+                case GameState.CORP:
+                    return getString(R.string.title_section1).toUpperCase(l) + " (" + Integer.toString(creditsCorp) + " C)";
+                case GameState.RUNNER:
+                    return getString(R.string.title_section2).toUpperCase(l) + " (" + Integer.toString(creditsRunner) + " C)";
             }
             return null;
         }
 
         public void setCredits(int position, int value) {
             switch (position) {
-                case CORP:
+                case GameState.CORP:
                     creditsCorp = value;
-                case RUNNER:
+                case GameState.RUNNER:
                     creditsRunner = value;
             }
 
@@ -295,8 +302,11 @@ public class MainActivity extends Activity implements
         tc.clearButtons();
 
         int i = mViewPager.getCurrentItem();
+        //mViewPager.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_orange_dark)));
         i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
         mViewPager.setCurrentItem(i);
+        //mViewPager.setBackgroundDrawable(null);
+        //.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean rotate = prefs.getBoolean("rotation_enabled", true);
@@ -309,13 +319,12 @@ public class MainActivity extends Activity implements
             }
         }
 
-        numTurns++;
-        updateTitle();
+        gs.startNextTurn();
     }
 
     public void doNegativeClick() {
         int i = mViewPager.getCurrentItem();
-        if (i == CORP) {
+        if (i == GameState.CORP) {
             TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
             tc.clearLastButton();
         }
@@ -323,22 +332,5 @@ public class MainActivity extends Activity implements
             TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
             tc.clearLastButton();
         }
-    }
-
-
-    private void updateTitle() {
-        this.setTitle(this.getApplicationName() + " - turn " + getNumRounds());
-    }
-
-    private String getNumRounds() {
-        return fmt(Math.floor((numTurns - this.numTurns % 2) / 2) + 1);
-    }
-
-    public static String fmt(double d)
-    {
-        if(d == (long) d)
-            return String.format("%d",(long)d);
-        else
-            return String.format("%s",d);
     }
 }

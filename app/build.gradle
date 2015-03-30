@@ -8,23 +8,18 @@ android {
         applicationId "net.pooksoft.nrclicker"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 8
-        versionName "1.11"
-    }
-
-    productFlavors {
-        free {
-            applicationId "net.pooksoft.nrclicker"
-        }
-        paid {
-            applicationId "net.pooksoft.nrclicker"
-        }
+        versionCode 10
+        versionName "1.13"
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFile 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
         }
     }
 }

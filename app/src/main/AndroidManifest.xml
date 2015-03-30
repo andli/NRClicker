@@ -26,6 +26,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.pooksoft.nrclicker.MainActivity" />
         </activity>
+        <activity
+            android:name="net.pooksoft.nrclicker.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="net.pooksoft.nrclicker.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.pooksoft.nrclicker.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
