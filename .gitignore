@@ -42,8 +42,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.*
+!/.gitignore
 *.lock
-.gradle/
 build/
-.idea/
 *.apk
