@@ -8,9 +8,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -240,6 +237,44 @@ public class MainActivity extends Activity implements
         this.setTitle(this.getApplicationName() + " - turn " + gs.getNumRoundsAsString());
     }
 
+    public void startNextTurn() {
+        TurnClicker tc = (TurnClicker) findViewById(R.id.turnClickerCorp);
+        tc.clearButtons();
+        tc = (TurnClicker) findViewById(R.id.turnClickerRunner);
+        tc.clearButtons();
+
+        int i = mViewPager.getCurrentItem();
+        //mViewPager.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_orange_dark)));
+        i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
+        mViewPager.setCurrentItem(i);
+        //mViewPager.setBackgroundDrawable(null);
+        //.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean rotate = prefs.getBoolean("rotation_enabled", true);
+        if (rotate) {
+            int rotation = getWindowManager().getDefaultDisplay().getRotation();
+            if (rotation == Surface.ROTATION_0) {
+                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+            } else {
+                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+        }
+
+        gs.startNextTurn();
+    }
+
+    public void dontStartNextTurn() {
+        int i = mViewPager.getCurrentItem();
+        if (i == GameState.CORP) {
+            TurnClicker tc = (TurnClicker) findViewById(R.id.turnClickerCorp);
+            tc.clearLastButton();
+        } else {
+            TurnClicker tc = (TurnClicker) findViewById(R.id.turnClickerRunner);
+            tc.clearLastButton();
+        }
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -292,45 +327,6 @@ public class MainActivity extends Activity implements
             }
 
             this.notifyDataSetChanged();
-        }
-    }
-
-    public void doPositiveClick() {
-        TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
-        tc.clearButtons();
-        tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
-        tc.clearButtons();
-
-        int i = mViewPager.getCurrentItem();
-        //mViewPager.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_orange_dark)));
-        i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
-        mViewPager.setCurrentItem(i);
-        //mViewPager.setBackgroundDrawable(null);
-        //.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean rotate = prefs.getBoolean("rotation_enabled", true);
-        if (rotate) {
-            int rotation = getWindowManager().getDefaultDisplay().getRotation();
-            if (rotation == Surface.ROTATION_0) {
-                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-            } else {
-                this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
-        }
-
-        gs.startNextTurn();
-    }
-
-    public void doNegativeClick() {
-        int i = mViewPager.getCurrentItem();
-        if (i == GameState.CORP) {
-            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
-            tc.clearLastButton();
-        }
-        else {
-            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
-            tc.clearLastButton();
         }
     }
 }

@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.pooksoft.nrclicker.MainActivity;
@@ -26,7 +24,8 @@ public class SwitchFragmentDialog extends DialogFragment {
     private CountDownTimer switchTimer;
     private boolean autoSwitch;
 
-    public SwitchFragmentDialog() {}
+    public SwitchFragmentDialog() {
+    }
 
     public static SwitchFragmentDialog newInstance(String nextPlayerLabel) {
         SwitchFragmentDialog frag = new SwitchFragmentDialog();
@@ -52,7 +51,7 @@ public class SwitchFragmentDialog extends DialogFragment {
                         if (autoSwitch) {
                             switchTimer.cancel();
                         }
-                        ((MainActivity) getActivity()).doPositiveClick();
+                        ((MainActivity) getActivity()).startNextTurn();
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -60,7 +59,7 @@ public class SwitchFragmentDialog extends DialogFragment {
                         if (autoSwitch) {
                             switchTimer.cancel();
                         }
-                        ((MainActivity) getActivity()).doNegativeClick();
+                        ((MainActivity) getActivity()).dontStartNextTurn();
                     }
                 });
 

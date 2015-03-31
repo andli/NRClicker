@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+<info.hoang8f.android.segmented.SegmentedGroup xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/clickGroup"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_gravity="bottom"
+    android:layout_margin="10dp"
     android:layout_weight="1"
-    android:background="@color/pooksoft_dark"
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="8dp">
 
-</RadioGroup>
+</info.hoang8f.android.segmented.SegmentedGroup>

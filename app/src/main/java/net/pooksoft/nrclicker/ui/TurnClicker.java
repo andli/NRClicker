@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -17,6 +16,8 @@ import android.widget.RadioButton;
 import net.pooksoft.nrclicker.R;
 
 import java.util.ArrayList;
+
+import info.hoang8f.android.segmented.SegmentedGroup;
 
 public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
@@ -46,14 +47,14 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.turn_clicker, this, true);
 
-        ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
+        SegmentedGroup clickGroup = (SegmentedGroup) findViewById(R.id.clickGroup);
 
         for (int i = 0; i < numClicks; i++) {
             ClickerRadioButton radioButton = (ClickerRadioButton) inflater.inflate(R.layout.clicker_radiobutton, null);
             radioButton.setId(i);
+            radioButton.setText(Integer.toString(i + 1));
             radioButton.setOnClickListener(this);
-            radioButton.setPadding(0, 0, 0, 0);
-
+            clickGroup.setTintColor(getResources().getColor(R.color.pooksoft));
             clickGroup.addView(radioButton);
         }
 
@@ -88,7 +89,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         int num = clickGroup.getChildCount();
         ArrayList<RadioButton> listOfRadioButtons = new ArrayList<>();
         for (int i = 0; i < num; i++) {
-            RadioButton rb = (RadioButton) clickGroup.getChildAt(i);
+            ClickerRadioButton rb = (ClickerRadioButton) clickGroup.getChildAt(i);
             listOfRadioButtons.add(rb);
             rb.setChecked(false);
         }
@@ -103,6 +104,5 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
         ClickerRadioButton rb = (ClickerRadioButton) clickGroup.getChildAt(clickGroup.getChildCount() - 1);
         rb.setChecked(false);
-
     }
 }
