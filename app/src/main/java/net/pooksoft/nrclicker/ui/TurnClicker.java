@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Vibrator;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +18,10 @@ import net.pooksoft.nrclicker.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by andreas on 2014-11-11.
- */
 public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
     private FragmentManager fMgr;
     private String nextPlayerLabel;
-    private int numClicks;
     private Vibrator myVib;
 
     public TurnClicker(Context context, AttributeSet attrs) {
@@ -35,7 +30,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         myVib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         TypedArray xmlAttrs = context.obtainStyledAttributes(attrs, R.styleable.TurnClicker, 0, 0);
-        numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
+        int numClicks = xmlAttrs.getInteger(R.styleable.TurnClicker_numClicks, 0);
         this.nextPlayerLabel = xmlAttrs.getString(R.styleable.TurnClicker_nextPlayerLabel);
         xmlAttrs.recycle();
 
@@ -54,31 +49,17 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
 
         for (int i = 0; i < numClicks; i++) {
-            RadioButton rdbtn = new RadioButton(context);
-            rdbtn.setId(i);
-            //rdbtn.setPadding(0, 0, 0, 0);
-            clickGroup.addView(rdbtn);
+            ClickerRadioButton radioButton = (ClickerRadioButton) inflater.inflate(R.layout.clicker_radiobutton, null);
+            radioButton.setId(i);
+            radioButton.setOnClickListener(this);
+            radioButton.setPadding(0, 0, 0, 0);
+
+            clickGroup.addView(radioButton);
         }
 
-        // if it's the last button, add a listener that spawns a question
-        int numButtons = clickGroup.getChildCount();
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int densityDpi = (int) (metrics.density * 160f);
+        ClickerRadioButton lastButton = (ClickerRadioButton) clickGroup.getChildAt(clickGroup.getChildCount() - 1);
 
-        for (int j = 0; j < numButtons; j++) {
-            RadioButton rb = (RadioButton) clickGroup.getChildAt(j);
-            rb.setOnClickListener(this);
-
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rb.getLayoutParams();
-            params.width = (int) Math.round(densityDpi * 0.5);
-            params.height = (int) Math.round(densityDpi * 0.5);
-            rb.setLayoutParams(params);
-            //getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-        }
-
-        RadioButton lastrb = (RadioButton) clickGroup.getChildAt(numButtons - 1);
-
-        lastrb.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+        lastButton.setOnCheckedChangeListener(new ClickerRadioButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton RadioButton, boolean isChecked) {
                 if (isChecked) {
@@ -120,7 +101,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
     public void clearLastButton() {
         LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
-        RadioButton rb = (RadioButton) clickGroup.getChildAt(clickGroup.getChildCount() - 1);
+        ClickerRadioButton rb = (ClickerRadioButton) clickGroup.getChildAt(clickGroup.getChildCount() - 1);
         rb.setChecked(false);
 
     }

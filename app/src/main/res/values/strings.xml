@@ -22,4 +22,7 @@
     <string name="action_clear">Clear</string>
     <string name="auto_switch_player_desc">After 2 seconds, the app will switch to the next player if not aborted.</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -2,12 +2,13 @@
 
 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/clickGroup"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="bottom"
-    android:layout_weight="2"
+    android:layout_weight="1"
+    android:background="@color/pooksoft_dark"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="8dp">
 
 </RadioGroup>
