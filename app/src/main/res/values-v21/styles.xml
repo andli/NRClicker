@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.DeviceDefault">
+
+    <style name="Theme.Pooksoft" parent="android:Theme.Material.Light.DarkActionBar">
+        <item name="android:colorPrimary">@color/pooksoft</item>
+        <item name="android:colorPrimaryDark">@color/pooksoft_dark</item>
     </style>
 </resources>

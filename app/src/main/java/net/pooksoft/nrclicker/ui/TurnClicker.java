@@ -2,7 +2,6 @@ package net.pooksoft.nrclicker.ui;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Vibrator;
@@ -14,8 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.ToggleButton;
+import android.widget.RadioButton;
 
 import net.pooksoft.nrclicker.R;
 
@@ -44,8 +42,7 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         fMgr = null;
         try {
             fMgr = ((Activity) context).getFragmentManager();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.d("test", e.toString());
         }
 
@@ -57,34 +54,33 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
         ViewGroup clickGroup = (ViewGroup) findViewById(R.id.clickGroup);
 
         for (int i = 0; i < numClicks; i++) {
-            inflater.inflate(R.layout.toggle_button, clickGroup, true);
-
-            if (numClicks % 2 == 0) {
-                // TODO: offset maybe?
-            }
+            RadioButton rdbtn = new RadioButton(context);
+            rdbtn.setId(i);
+            //rdbtn.setPadding(0, 0, 0, 0);
+            clickGroup.addView(rdbtn);
         }
 
         // if it's the last button, add a listener that spawns a question
         int numButtons = clickGroup.getChildCount();
         DisplayMetrics metrics = getResources().getDisplayMetrics();
-        int densityDpi = (int)(metrics.density * 160f);
+        int densityDpi = (int) (metrics.density * 160f);
 
         for (int j = 0; j < numButtons; j++) {
-            ToggleButton tb = (ToggleButton) clickGroup.getChildAt(j);
-            tb.setOnClickListener(this);
+            RadioButton rb = (RadioButton) clickGroup.getChildAt(j);
+            rb.setOnClickListener(this);
 
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tb.getLayoutParams();
-            params.width = (int)Math.round(densityDpi * 0.5);
-            params.height = (int)Math.round(densityDpi * 0.5);
-            tb.setLayoutParams(params);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rb.getLayoutParams();
+            params.width = (int) Math.round(densityDpi * 0.5);
+            params.height = (int) Math.round(densityDpi * 0.5);
+            rb.setLayoutParams(params);
             //getApplicationContext().getSystemService(VIBRATOR_SERVICE);
         }
 
-        ToggleButton lastTb = (ToggleButton) clickGroup.getChildAt(numButtons - 1);
+        RadioButton lastrb = (RadioButton) clickGroup.getChildAt(numButtons - 1);
 
-        lastTb.setOnCheckedChangeListener(new ToggleButton.OnCheckedChangeListener() {
+        lastrb.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton ToggleButton, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton RadioButton, boolean isChecked) {
                 if (isChecked) {
                     SwitchFragmentDialog switchFragmentDialog = SwitchFragmentDialog.newInstance(nextPlayerLabel);
 
@@ -109,11 +105,11 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
     public void clearButtons() {
         LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
         int num = clickGroup.getChildCount();
-        ArrayList<ToggleButton> listOfRadioButtons = new ArrayList<ToggleButton>();
+        ArrayList<RadioButton> listOfRadioButtons = new ArrayList<>();
         for (int i = 0; i < num; i++) {
-            ToggleButton tb = (ToggleButton)clickGroup.getChildAt(i);
-            listOfRadioButtons.add(tb);
-            tb.setChecked(false);
+            RadioButton rb = (RadioButton) clickGroup.getChildAt(i);
+            listOfRadioButtons.add(rb);
+            rb.setChecked(false);
         }
     }
 
@@ -124,8 +120,8 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
 
     public void clearLastButton() {
         LinearLayout clickGroup = (LinearLayout) findViewById(R.id.clickGroup);
-            ToggleButton tb = (ToggleButton)clickGroup.getChildAt(clickGroup.getChildCount() - 1);
-            tb.setChecked(false);
+        RadioButton rb = (RadioButton) clickGroup.getChildAt(clickGroup.getChildCount() - 1);
+        rb.setChecked(false);
 
     }
 }
