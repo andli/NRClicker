@@ -1,65 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2">
+<items version="2" >
 
     <item
         jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
-        jumboMode="false" revision="21.1.1" sha1="61965ae058916e6a57950dd61b0164dc866af19a">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-1182f8028a07387c7a0ef2e7703b75bfe194af89.jar" />
-    </item>
-    <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
-        jumboMode="false" revision="21.1.1" sha1="61965ae058916e6a57950dd61b0164dc866af19a">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\pre-dexed\debug\classes-e44f2fc03c6b8ea96d7551faafb86f5a8666fd41.jar" />
-    </item>
-    <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false" revision="21.1.1" sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-c030dccd8b30c6d1b4762131f257a55a60fc9855.jar" />
-    </item>
-    <item
-        jar="C:\Users\andreas\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
-        jumboMode="false" revision="21.1.1" sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-54585e3f6979670ec2f01bea1b7b44bae57dc5d8.jar" />
-    </item>
-    <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
-        jumboMode="false" revision="21.1.1" sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\pre-dexed\debug\classes-41f17f6b3314172d9709c8c2790f3c2be0966fbf.jar" />
-    </item>
-    <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false" revision="21.1.1" sha1="9346da9fb778af9e451211bbc3541daced174ba7">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-df80899cbc58b885714fd7287728e093dbcb6e50.jar" />
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="61965ae058916e6a57950dd61b0164dc866af19a">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-1182f8028a07387c7a0ef2e7703b75bfe194af89.jar" />
     </item>
     <item
         jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false" revision="21.1.1" sha1="9346da9fb778af9e451211bbc3541daced174ba7">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-050795d0afe0ab16cf31880c045c7e59954b0add.jar" />
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="9346da9fb778af9e451211bbc3541daced174ba7">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-050795d0afe0ab16cf31880c045c7e59954b0add.jar" />
     </item>
     <item
         jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
-        jumboMode="false" revision="21.1.1" sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-616cbd0ac1ad8abe43f854c769f08509138ffbf1.jar" />
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-616cbd0ac1ad8abe43f854c769f08509138ffbf1.jar" />
     </item>
     <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\exploded-aar\info.hoang8f\android-segmented\1.0.4\classes.jar"
-        jumboMode="false" revision="21.1.1" sha1="03964de4c0109863526406b8193d83aedc4ae648">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\pre-dexed\debug\classes-d05c045b8998c2a7db425f80b5fa0112fbf043f6.jar" />
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-c030dccd8b30c6d1b4762131f257a55a60fc9855.jar" />
     </item>
     <item
-        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false" revision="21.1.1" sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex
-            dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\NRClicker\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-5d60d86bf5a2412443ae01338a480d80e4fcf9bb.jar" />
+        jar="C:\Users\andreas\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-54585e3f6979670ec2f01bea1b7b44bae57dc5d8.jar" />
+    </item>
+    <item
+        jar="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\exploded-aar\info.hoang8f\android-segmented\1.0.4\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="03964de4c0109863526406b8193d83aedc4ae648">
+        <dex dex="C:\Users\andreas\Dropbox\Kod\android\NRClicker\app\build\intermediates\pre-dexed\debug\classes-e4374b7ccedde1923e8215a0e1fbfd60a2a83062.jar" />
     </item>
 
 </items>

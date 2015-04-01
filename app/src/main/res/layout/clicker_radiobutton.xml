@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<net.pooksoft.nrclicker.ui.ClickerRadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clickerRadioButton"
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/RadioButton"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
+    android:minWidth="70dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_weight="1"
-    android:padding="10dp"
-    android:textSize="30dp">
+    android:padding="16dp"
+    android:textSize="30sp">
 
-</net.pooksoft.nrclicker.ui.ClickerRadioButton>
+</RadioButton>
