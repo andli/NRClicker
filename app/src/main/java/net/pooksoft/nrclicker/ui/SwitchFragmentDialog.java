@@ -46,15 +46,7 @@ public class SwitchFragmentDialog extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(msgString)//R.string.dialog_fire_missiles)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (autoSwitch) {
-                            switchTimer.cancel();
-                        }
-                        ((MainActivity) getActivity()).startNextTurn();
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (autoSwitch) {
                             switchTimer.cancel();
@@ -87,8 +79,8 @@ public class SwitchFragmentDialog extends DialogFragment {
 
                 @Override
                 public void onFinish() {
-
-                    alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+                    getDialog().dismiss();
+                    ((MainActivity) getActivity()).startNextTurn();
                 }
             };
             switchTimer.start();

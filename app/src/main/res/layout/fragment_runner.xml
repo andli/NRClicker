@@ -1,114 +1,114 @@
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/FragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:useDefaultMargins="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:useDefaultMargins="true">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="1"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical|fill"
-        android:padding="5dp"
-        android:gravity="fill">
+        android:layout_weight="1"
+        android:gravity="fill"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
-            app:labelText="Link Strength"
+            android:id="@+id/lnpLinkStrength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_weight=".5"
+            android:gravity="fill"
             app:danger="false"
+            app:fontSize="14"
+            app:labelText="Link Strength"
             app:rangeMax="5"
             app:rangeMin="0"
-            app:startValue="0"
-            app:fontSize="14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lnpLinkStrength"
-            android:gravity="fill"
-            android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            app:startValue="0" />
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
-            app:labelText=" Tags"
+            android:id="@+id/lnpTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_weight=".5"
+            android:gravity="fill"
             app:danger="true"
+            app:fontSize="14"
+            app:labelText=" Tags"
             app:rangeMax="50"
             app:rangeMin="0"
-            app:startValue="0"
-            app:fontSize="14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lnpTags"
-            android:gravity="fill"
-            android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            app:startValue="0" />
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
-            app:labelText="Brain damage"
-            app:danger="true"
-            app:rangeMax="9"
-            app:rangeMin="0"
-            app:startValue="0"
-            app:fontSize="14"
+            android:id="@+id/lnpBrainDamage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lnpBrainDamage"
-            android:gravity="fill"
             android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            android:layout_weight=".5"
+            android:gravity="fill"
+            app:danger="true"
+            app:fontSize="14"
+            app:labelText="Brain damage"
+            app:rangeMax="9"
+            app:rangeMin="0"
+            app:startValue="0" />
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="5dp"
         android:layout_gravity="center_vertical"
-        android:gravity="fill">
+        android:layout_weight="1"
+        android:gravity="fill"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
-            app:labelText=" Agendas"
-            app:danger="false"
-            app:rangeMax="7"
-            app:rangeMin="0"
-            app:startValue="0"
-            app:fontSize="22"
+            android:id="@+id/lnpAgendasRunner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lnpAgendasRunner"
-            android:gravity="fill"
             android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            android:layout_weight=".5"
+            android:gravity="fill"
+            app:danger="false"
+            app:fontSize="22"
+            app:labelText=" Agendas"
+            app:rangeMax="9"
+            app:rangeMin="0"
+            app:startValue="0" />
 
         <net.pooksoft.nrclicker.ui.LabeledNumberPicker
-            app:labelText=" Credits"
+            android:id="@+id/lnpCreditsRunner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_weight=".5"
+            android:gravity="fill"
             app:danger="false"
+            app:fontSize="22"
+            app:labelText=" Credits"
             app:rangeMax="99"
             app:rangeMin="0"
-            app:startValue="5"
-            app:fontSize="22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lnpCreditsRunner"
-            android:gravity="fill"
-            android:layout_gravity="fill"
-            android:layout_weight=".5" />
+            app:startValue="5" />
     </LinearLayout>
 
     <net.pooksoft.nrclicker.ui.TurnClicker
-        app:numClicks="4"
-        app:nextPlayerLabel="Corp"
+        android:id="@+id/turnClickerRunner"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_gravity="center"
-        android:id="@+id/turnClickerRunner"
         android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:nextPlayerLabel="Corp"
+        app:numClicks="4"
         >
 
     </net.pooksoft.nrclicker.ui.TurnClicker>
