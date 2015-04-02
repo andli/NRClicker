@@ -42,7 +42,6 @@ public class TurnClicker extends LinearLayout implements View.OnClickListener {
             Log.d("test", e.toString());
         }
 
-
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.turn_clicker, this, true);

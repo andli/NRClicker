@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.pooksoft.nrclicker" >
+    package="net.pooksoft.nrclicker">
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -9,10 +9,11 @@
         android:icon="@drawable/ic_launcher_nrclicker"
         android:label="@string/app_name"
         android:theme="@style/Theme.Pooksoft">
-    <activity
+        <activity
             android:name="net.pooksoft.nrclicker.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,16 +22,17 @@
         <activity
             android:name="net.pooksoft.nrclicker.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="net.pooksoft.nrclicker.MainActivity" >
-            <meta-data
+            android:parentActivityName="net.pooksoft.nrclicker.MainActivity"
+            android:screenOrientation="portrait">
+        <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.pooksoft.nrclicker.MainActivity" />
         </activity>
         <activity
             android:name="net.pooksoft.nrclicker.StatisticsActivity"
             android:label="@string/title_activity_statistics"
-            android:parentActivityName="net.pooksoft.nrclicker.MainActivity" >
-            <meta-data
+            android:parentActivityName="net.pooksoft.nrclicker.MainActivity">
+        <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.pooksoft.nrclicker.MainActivity" />
         </activity>
