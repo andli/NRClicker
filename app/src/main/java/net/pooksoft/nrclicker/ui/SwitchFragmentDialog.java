@@ -45,15 +45,35 @@ public class SwitchFragmentDialog extends DialogFragment {
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(msgString)//R.string.dialog_fire_missiles)
-                .setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (autoSwitch) {
-                            switchTimer.cancel();
-                        }
-                        ((MainActivity) getActivity()).dontStartNextTurn();
+        builder.setMessage(msgString);//R.string.dialog_fire_missiles)
+
+        if (autoSwitch) {
+            builder.setNegativeButton(R.string.abort, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if (autoSwitch) {
+                        switchTimer.cancel();
                     }
-                });
+                    ((MainActivity) getActivity()).dontStartNextTurn();
+                }
+            });
+        } else {
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if (autoSwitch) {
+                        switchTimer.cancel();
+                    }
+                    ((MainActivity) getActivity()).startNextTurn();
+                }
+            })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if (autoSwitch) {
+                                switchTimer.cancel();
+                            }
+                            ((MainActivity) getActivity()).dontStartNextTurn();
+                        }
+                    });
+        }
 
         if (autoSwitch) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_switch_dialog, null);
