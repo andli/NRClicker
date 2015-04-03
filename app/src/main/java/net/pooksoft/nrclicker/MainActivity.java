@@ -18,10 +18,12 @@ import android.view.MenuItem;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import net.pooksoft.nrclicker.model.DataEntry;
 import net.pooksoft.nrclicker.ui.LabeledNumberPicker;
 import net.pooksoft.nrclicker.ui.TurnClicker;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -44,7 +46,7 @@ public class MainActivity extends Activity implements
      */
     ViewPager mViewPager;
     ActionBar mActionBar;
-    ArrayList<Integer> lnps;
+    ArrayList<Integer> labeledNumberPickers;
 
     GameState gs;
 
@@ -59,7 +61,7 @@ public class MainActivity extends Activity implements
         setContentView(R.layout.activity_main);
 
         gs = new GameState(this);
-        this.setTitle(this.getApplicationName() + " - turn " + gs.getNumRoundsAsString());
+        updateAppTitle();
 
         // Set up the action bar.
         mActionBar = getActionBar();
@@ -101,6 +103,16 @@ public class MainActivity extends Activity implements
 
         // Keep the screen on in this app
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        labeledNumberPickers = new ArrayList<>();
+        labeledNumberPickers.add(R.id.lnpAgendasCorp);
+        labeledNumberPickers.add(R.id.lnpAgendasRunner);
+        labeledNumberPickers.add(R.id.lnpBadPublicity);
+        labeledNumberPickers.add(R.id.lnpBrainDamage);
+        labeledNumberPickers.add(R.id.lnpCreditsCorp);
+        labeledNumberPickers.add(R.id.lnpCreditsRunner);
+        labeledNumberPickers.add(R.id.lnpLinkStrength);
+        labeledNumberPickers.add(R.id.lnpTags);
     }
 
     @Override
@@ -123,10 +135,6 @@ public class MainActivity extends Activity implements
             intent.setClass(MainActivity.this, SettingsActivity.class);
             startActivityForResult(intent, 1);
 
-            /*getFragmentManager().beginTransaction()
-                    .add(R.id.main_container, SettingsFragment.newInstance())
-                    .addToBackStack(null)
-                    .commit();*/
             return true;
         }
 
@@ -135,50 +143,60 @@ public class MainActivity extends Activity implements
             intent.setClass(MainActivity.this, StatisticsActivity.class);
             startActivityForResult(intent, 1);
 
-            /*getFragmentManager().beginTransaction()
-                    .add(R.id.main_container, SettingsFragment.newInstance())
-                    .addToBackStack(null)
-                    .commit();*/
             return true;
         }
 
         if (id == R.id.action_newgame) {
-            TurnClicker tc = (TurnClicker)findViewById(R.id.turnClickerCorp);
-            tc.clearButtons();
-            tc = (TurnClicker)findViewById(R.id.turnClickerRunner);
-            tc.clearButtons();
+            clearAndReset();
 
-            /*((CorpFragment)mSectionsPagerAdapter.getItem(CORP)).clearValues();
-            ((RunnerFragment)mSectionsPagerAdapter.getItem(RUNNER)).clearValues();*/
+            return true;
+        }
 
-            lnps = new ArrayList<Integer> ();
-            lnps.add(R.id.lnpAgendasCorp);
-            lnps.add(R.id.lnpAgendasRunner);
-            lnps.add(R.id.lnpBadPublicity);
-            lnps.add(R.id.lnpBrainDamage);
-            lnps.add(R.id.lnpCreditsCorp);
-            lnps.add(R.id.lnpCreditsRunner);
-            lnps.add(R.id.lnpLinkStrength);
-            lnps.add(R.id.lnpTags);
+        if (id == R.id.action_endgame) {
+            saveStats();
 
-            for (int lnp: lnps) {
-                ((LabeledNumberPicker)this.findViewById(lnp)).reset();
-            }
+            clearAndReset();
 
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-            /**
-             * Init the app
-             */
-            mViewPager.setCurrentItem(GameState.CORP);
-            onValueUpdated(R.id.lnpCreditsCorp, 5);
-            onValueUpdated(R.id.lnpCreditsRunner, 5);
-
-            gs = new GameState(this);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveStats() {
+        gs.saveData(getData(labeledNumberPickers));
+    }
+
+    private List<DataEntry> getData(ArrayList<Integer> labeledNumberPickers) {
+        List<DataEntry> data = new ArrayList<>();
+        for (int lnpId : labeledNumberPickers) {
+            int value = ((LabeledNumberPicker) this.findViewById(lnpId)).getValue();
+            data.add(new DataEntry(lnpId, value, getResources().getResourceEntryName(lnpId)));
+        }
+        return data;
+    }
+
+    private void clearAndReset() {
+        TurnClicker tc = (TurnClicker) findViewById(R.id.turnClickerCorp);
+        tc.clearButtons();
+        tc = (TurnClicker) findViewById(R.id.turnClickerRunner);
+        tc.clearButtons();
+
+        for (int lnp : labeledNumberPickers) {
+            ((LabeledNumberPicker) this.findViewById(lnp)).reset();
+        }
+
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        /**
+         * Init the app
+         */
+        mViewPager.setCurrentItem(GameState.CORP);
+        onValueUpdated(R.id.lnpCreditsCorp, 5);
+        onValueUpdated(R.id.lnpCreditsRunner, 5);
+
+        gs = new GameState(this);
+        updateAppTitle();
     }
 
     @Override
@@ -234,6 +252,10 @@ public class MainActivity extends Activity implements
     @Override
     public void onNextTurn() {
         // update app title
+        updateAppTitle();
+    }
+
+    private void updateAppTitle() {
         this.setTitle(this.getApplicationName() + " - turn " + gs.getNumRoundsAsString());
     }
 
@@ -243,12 +265,8 @@ public class MainActivity extends Activity implements
         tc = (TurnClicker) findViewById(R.id.turnClickerRunner);
         tc.clearButtons();
 
-        int i = mViewPager.getCurrentItem();
-        //mViewPager.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.holo_orange_dark)));
-        i ^= 1; // XOR with 1, obviously stops working if more than two tabs.
-        mViewPager.setCurrentItem(i);
-        //mViewPager.setBackgroundDrawable(null);
-        //.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+        gs.switchPlayer();
+        mViewPager.setCurrentItem(gs.getActivePlayer());
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean rotate = prefs.getBoolean("rotation_enabled", true);

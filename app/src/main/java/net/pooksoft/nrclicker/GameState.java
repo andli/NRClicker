@@ -1,15 +1,33 @@
 package net.pooksoft.nrclicker;
 
+import android.util.Log;
+
+import net.pooksoft.nrclicker.model.DataEntry;
+
+import java.util.List;
+
 /**
  * Tracks the game state of a game of Netrunner.
  */
 public class GameState {
 
     public static final int CORP = 0;
-    public static final int RUNNER = 1;
-
     private int activePlayer = CORP;
+    public static final int RUNNER = 1;
     private GameStateListener gameStateListener;
+    private int numTurns = 0;
+
+    public GameState(GameStateListener listener) {
+        this.activePlayer = CORP;
+        this.gameStateListener = listener;
+    }
+
+    private static String toStringFromNumber(double d) {
+        if (d == (long) d)
+            return String.format("%d", (long) d);
+        else
+            return String.format("%s", d);
+    }
 
     public int getNumTurns() {
         return numTurns;
@@ -19,32 +37,21 @@ public class GameState {
         return activePlayer;
     }
 
-    private int numTurns = 0;
-
-    public GameState(GameStateListener listener) {
-        this.activePlayer = CORP;
-        this.gameStateListener = listener;
+    public void switchPlayer() {
+        activePlayer ^= 1;
     }
 
     public void startNextTurn() {
-        activePlayer ^= 1;
         numTurns++;
         gameStateListener.onNextTurn();
     }
 
-    public void end() {
-        // TODO: save stats
-    }
-
     public String getNumRoundsAsString() {
-        return fmt(Math.floor((numTurns - this.numTurns % 2) / 2) + 1);
+        return toStringFromNumber(Math.floor((numTurns - this.numTurns % 2) / 2) + 1);
     }
 
-    private static String fmt(double d)
-    {
-        if(d == (long) d)
-            return String.format("%d",(long)d);
-        else
-            return String.format("%s",d);
+    public void saveData(List<DataEntry> data) {
+        Log.d("test", data.toString());
+
     }
 }

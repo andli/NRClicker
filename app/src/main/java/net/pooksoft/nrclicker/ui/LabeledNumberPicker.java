@@ -25,13 +25,13 @@ import java.util.LinkedList;
 public class LabeledNumberPicker extends LinearLayout implements NumberPicker.OnValueChangeListener {
 
     private static final int CHANGE_TIMEOUT = 2000;
-    private int startValue;
-    private boolean danger;
+    final Handler changeHandler = new Handler();
     NumberPicker np;
     VerticalTextView label;
     TextView log;
     LinkedList<Integer> loggedValues;
-    final Handler changeHandler = new Handler();
+    private int startValue;
+    private boolean danger;
     private ValueChangeListener activityListener;
 
     private int NUM_LOG_VALS;
@@ -83,6 +83,35 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         super(context, attrs, defStyle);
     }
 
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
+        final int count = numberPicker.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = numberPicker.getChildAt(i);
+            if (child instanceof EditText) {
+                try {
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText) child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                } catch (NoSuchFieldException e) {
+                    Log.w("setNumberPickerTextColor", e);
+                } catch (IllegalAccessException e) {
+                    Log.w("setNumberPickerTextColor", e);
+                } catch (IllegalArgumentException e) {
+                    Log.w("setNumberPickerTextColor", e);
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getValue() {
+        return np.getValue();
+    }
+
     public void setLabelText(String text) {
         label.setText(text);
     }
@@ -116,8 +145,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         if (danger) {
             if (newVal > 0) {
                 setNumberPickerTextColor(numberPicker, android.graphics.Color.argb(255, 255, 0, 0));
-            }
-            else {
+            } else {
                 setNumberPickerTextColor(numberPicker, label.getTextColors().getDefaultColor());
             }
         }
@@ -125,8 +153,7 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
 
         try {
             this.activityListener.onValueUpdated(this.getId(), newVal);
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             Log.d("test", "onValueChange in lnp, no target listener");
         }
     }
@@ -140,35 +167,6 @@ public class LabeledNumberPicker extends LinearLayout implements NumberPicker.On
         np.setValue(this.startValue);
         setNumberPickerTextColor(np, label.getTextColors().getDefaultColor());
         clearLogger();
-    }
-
-    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
-    {
-        final int count = numberPicker.getChildCount();
-        for(int i = 0; i < count; i++){
-            View child = numberPicker.getChildAt(i);
-            if(child instanceof EditText){
-                try{
-                    Field selectorWheelPaintField = numberPicker.getClass()
-                            .getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText)child).setTextColor(color);
-                    numberPicker.invalidate();
-                    return true;
-                }
-                catch(NoSuchFieldException e){
-                    Log.w("setNumberPickerTextColor", e);
-                }
-                catch(IllegalAccessException e){
-                    Log.w("setNumberPickerTextColor", e);
-                }
-                catch(IllegalArgumentException e){
-                    Log.w("setNumberPickerTextColor", e);
-                }
-            }
-        }
-        return false;
     }
 
 }
